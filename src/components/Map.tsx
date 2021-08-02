@@ -13,7 +13,7 @@ export class Map extends Component {
             };
         });
 
-        map.data.loadGeoJson("renewalGeojson.json");
+        map.data.loadGeoJson("renewalUnits_all.json");
 
         // Click event
         map.data.addListener("click", (event: any) => {
