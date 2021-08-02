@@ -2,6 +2,9 @@ import {Component} from "react";
 import GoogleMapReact from "google-map-react";
 import "./Map.scss";
 
+const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
+const RENEWAL_GEOJSON = "renewalUnits_sample.json";
+
 export class Map extends Component {
     private loadGeojson = (map: any, maps: any) => {
         map.data.setStyle((feature: any) => {
@@ -13,7 +16,7 @@ export class Map extends Component {
             };
         });
 
-        map.data.loadGeoJson("renewalUnits_all.json");
+        map.data.loadGeoJson(RENEWAL_GEOJSON);
 
         // Click event
         map.data.addListener("click", (event: any) => {
@@ -38,8 +41,8 @@ export class Map extends Component {
         return (
             <div className="map">
                 <GoogleMapReact
-                    defaultCenter={{lat: 25.036963137555553, lng: 121.52847908553798}}
-                    defaultZoom={17}
+                    defaultCenter={TAIPEI_CENTER}
+                    defaultZoom={14}
                     options={{streetViewControl: true, mapTypeControl: true}}
                     yesIWantToUseGoogleMapApiInternals={true}
                     onGoogleApiLoaded={({map, maps}) => this.loadGeojson(map, maps)}
