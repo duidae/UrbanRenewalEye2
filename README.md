@@ -22,9 +22,13 @@
 
 * [臺北市都市更新處](https://uro.gov.taipei/Default.aspx)
 
+* [所有事業計畫核定案, 有地號](https://uro.gov.taipei/cp.aspx?n=963B15B39CADB94E)
+
 * [都市更新案件進度](http://163.29.40.120/r_progress.aspx?case_id=08910130)
 
-* [都市更新案件進度2](http://www.gis.udd.taipei.gov.tw/r_progress.aspx?case_id=09706271)
+* [都市更新案件進度2: case_id=09706271 097=>年, 06=>月](http://www.gis.udd.taipei.gov.tw/r_progress.aspx?case_id=09706271)
+
+* [核定案件：搜審查流程 -> 核定, 可得核定案案件編號](https://www.gis.udd.gov.taipei/ProjectSearch.aspx)
 
 * [自劃更新單元](https://uro.gov.taipei/News.aspx?n=AF4D78CF694B745C&sms=CCC54E6046E281ED)
 
