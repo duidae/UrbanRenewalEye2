@@ -24,6 +24,8 @@
 
 * [都市更新案件進度](http://163.29.40.120/r_progress.aspx?case_id=08910130)
 
+* [都市更新案件進度2](http://www.gis.udd.taipei.gov.tw/r_progress.aspx?case_id=09706271)
+
 * [自劃更新單元](https://uro.gov.taipei/News.aspx?n=AF4D78CF694B745C&sms=CCC54E6046E281ED)
 
 * [聽證,公聽會(公民參與會議資訊)(json)](https://civil.gov.taipei/OpenData.aspx?SN=881665EB5B77192F)
