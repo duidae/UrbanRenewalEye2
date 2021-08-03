@@ -33,7 +33,7 @@ class Layout extends React.Component<any, any> {
                     <Typography variant="h6" className={classes.title}>
                         都市更新天眼通
                     </Typography>
-                    <IconButton aria-label="聽證會" color="inherit" onClick={() => {}}>
+                    <IconButton aria-label="聽證會" color="inherit" disabled={!AppStore.Instance.meetingNum} onClick={() => {}}>
                         <Badge badgeContent={AppStore.Instance.meetingNum} color="secondary">
                             <NotificationsActiveIcon />
                         </Badge>
