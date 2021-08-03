@@ -1,6 +1,7 @@
 import React from "react";
-import {AppBar, Link, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Badge, Link, IconButton, Toolbar, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import {Map} from "./components/Map";
@@ -29,6 +30,11 @@ class Layout extends React.Component<any, any> {
                     <Typography variant="h6" className={classes.title}>
                         都市更新天眼通
                     </Typography>
+                    <IconButton aria-label="show 4 new mails" color="inherit">
+                        <Badge badgeContent={4} color="secondary">
+                            <NotificationsActiveIcon />
+                        </Badge>
+                    </IconButton>
                     <Link href={FB_FAN_PAGE} color="inherit" target="_blank">
                         <FacebookIcon />
                     </Link>
