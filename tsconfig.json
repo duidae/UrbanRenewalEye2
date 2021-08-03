@@ -19,6 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "noImplicitAny": false,
+    "experimentalDecorators": true,
     "jsx": "react-jsx",
     "types": ["google.maps"]
   },
