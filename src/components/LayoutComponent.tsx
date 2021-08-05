@@ -83,7 +83,7 @@ class Layout extends React.Component<any, any> {
             <AppBar position="static">
                 <Toolbar>
                     <Link className={classes.title} href={HOME} color="inherit">
-                        <img className={classes.logo} src="logo.png"/>
+                        <img className={classes.logo} src="logo.png" alt="都市更新天眼通"/>
                         <Typography variant="h6">
                             都市更新天眼通
                         </Typography>
