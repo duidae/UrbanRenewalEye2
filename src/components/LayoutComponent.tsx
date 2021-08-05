@@ -22,9 +22,6 @@ const styles = theme => ({
     mapContainer: {
         height: "calc(100% - 64px)" // TODO: is it possible not to minus "32px"?
     },
-    menuButton: {
-        marginRight: theme.spacing(2)
-    },
     logo: {
         maxWidth: 30,
         maxHeight: 30,
