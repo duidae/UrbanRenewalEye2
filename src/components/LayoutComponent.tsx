@@ -19,7 +19,7 @@ const styles = theme => ({
         height: "100vh"
     },
     mapBox: {
-        height: "calc(100% - 32px)"
+        height: "calc(100% - 32px)" // TODO: is it possible not to minus "32px"?
     },
     menuButton: {
         marginRight: theme.spacing(2)
