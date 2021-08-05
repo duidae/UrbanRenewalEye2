@@ -15,9 +15,11 @@ const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
 
 const styles = theme => ({
     root: {
-        display: "flex",
-        flexFlow: "column",
+        flexGrow: 1,
         height: "100vh"
+    },
+    grow: {
+        flexGrow: 1,
     },
     mapContainer: {
         height: "calc(100% - 64px)" // TODO: is it possible not to minus "32px"?
@@ -29,6 +31,9 @@ const styles = theme => ({
     },
     title: {
         display: "flex",
+    },
+    appItems: {
+        marginRight: theme.spacing(2)
     }
 });
 
@@ -79,22 +84,21 @@ class Layout extends React.Component<any, any> {
         const appBar = (
             <AppBar position="static">
                 <Toolbar>
-                    <Link className={classes.title} href={HOME} color="inherit">
+                    <Link className={classes.title} color="inherit" href={HOME}>
                         <img className={classes.logo} src="logo.png" alt="都市更新天眼通"/>
-                        <Typography variant="h6">
-                            都市更新天眼通
-                        </Typography>
+                        <Typography variant="h6" noWrap>都市更新天眼通</Typography>
                     </Link>
+                    <div className={classes.grow} />
                     {meetingPopover}
-                    <IconButton aria-label="聽證會" color="inherit" disabled={!meetingNum} onClick={this.handleMeetingPopoverOpen}>
+                    <IconButton className={classes.appItems} aria-label="聽證會" color="inherit" disabled={!meetingNum} onClick={this.handleMeetingPopoverOpen}>
                         <Badge badgeContent={meetingNum} color="secondary">
                             <NotificationsActiveIcon />
                         </Badge>
                     </IconButton>
-                    <Link href={FB_FAN_PAGE} color="inherit" target="_blank">
+                    <Link className={classes.appItems} href={FB_FAN_PAGE} color="inherit" target="_blank">
                         <FacebookIcon />
                     </Link>
-                    <Link href={GITHUB_REPO} color="inherit" target="_blank">
+                    <Link className={classes.appItems} href={GITHUB_REPO} color="inherit" target="_blank">
                         <GitHubIcon />
                     </Link>
                 </Toolbar>
