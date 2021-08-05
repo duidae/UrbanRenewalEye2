@@ -1,4 +1,4 @@
-import {computed, observable, makeObservable, runInAction} from "mobx";
+import {observable, makeObservable, runInAction} from "mobx";
 
 export class AppStore {
     private static staticInstance: AppStore;
@@ -14,10 +14,6 @@ export class AppStore {
 
     private constructor() {
         makeObservable(this);
-        this.meetings = fetch("meetings_sample.json").then(response => response.json()).then(data => runInAction(() => {this.meetings = data;}));
-    }
-
-    @computed get meetingNum(): number {
-        return this.meetings?.length;
+        fetch("meetings_sample.json").then(response => response.json()).then(data => runInAction(() => {this.meetings = data;}));
     }
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {AppBar, Badge, Link, IconButton, Toolbar, Typography} from "@material-ui/core";
+import {action, observable, makeObservable} from "mobx";
+import {AppBar, Badge, Link, IconButton, Popover, Toolbar, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -25,16 +26,57 @@ const styles = theme => ({
 
 @observer
 class Layout extends React.Component<any, any> {
+    @observable isMeetingPopoverOpen: boolean;
+    private meetingPopoverAnchor;
+
+    @action private handleMeetingPopoverOpen = (event) => {
+        this.meetingPopoverAnchor = event.currentTarget;
+        this.isMeetingPopoverOpen = true;
+    };
+
+    @action private handleMeetingPopoverClose = () => {
+        this.meetingPopoverAnchor = null;
+        this.isMeetingPopoverOpen = false;
+    };
+
+    constructor(props) {
+        super(props);
+        makeObservable(this);
+        this.isMeetingPopoverOpen = false;
+    }
+
     public render() {
         const classes = this.props.classes;
+        const meetingPopover = (
+            <Popover
+                open={this.isMeetingPopoverOpen}
+                anchorEl={this.meetingPopoverAnchor}
+                onClose={this.handleMeetingPopoverClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+            >
+                {AppStore.Instance.meetings?.map(meeting => {
+                    return <Typography className={classes.typography}>{meeting?.title}</Typography>
+                })}
+          </Popover>
+        );
+
+        const meetingNum = AppStore.Instance.meetings?.length;
         const appBar = (
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         都市更新天眼通
                     </Typography>
-                    <IconButton aria-label="聽證會" color="inherit" disabled={!AppStore.Instance.meetingNum} onClick={() => {}}>
-                        <Badge badgeContent={AppStore.Instance.meetingNum} color="secondary">
+                    {meetingPopover}
+                    <IconButton aria-label="聽證會" color="inherit" disabled={!meetingNum} onClick={this.handleMeetingPopoverOpen}>
+                        <Badge badgeContent={meetingNum} color="secondary">
                             <NotificationsActiveIcon />
                         </Badge>
                     </IconButton>
