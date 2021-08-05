@@ -7,7 +7,8 @@ import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import {Map} from "./components/Map";
-import {AppStore} from "./stores/AppStore";
+import {AppStore} from "./stores";
+import {MeetingComponent} from "./components";
 
 const FB_FAN_PAGE = "https://www.facebook.com/urbanrenewaleye";
 const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
@@ -61,9 +62,7 @@ class Layout extends React.Component<any, any> {
                     horizontal: 'center',
                 }}
             >
-                {AppStore.Instance.meetings?.map((meeting, index) => {
-                    return <Typography key={index} className={classes.typography}>{meeting?.title}</Typography>
-                })}
+                {AppStore.Instance.meetings?.map(meeting => {return <MeetingComponent title={meeting?.title}/>})}
           </Popover>
         );
 
