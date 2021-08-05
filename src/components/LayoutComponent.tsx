@@ -9,6 +9,7 @@ import GitHubIcon from "@material-ui/icons/GitHub";
 import {AppStore} from "stores";
 import {GoogleMapComponent, MeetingComponent} from ".";
 
+const HOME = "https://urbanrenewaleye.df.r.appspot.com/";
 const FB_FAN_PAGE = "https://www.facebook.com/urbanrenewaleye";
 const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
 
@@ -18,14 +19,19 @@ const styles = theme => ({
         flexFlow: "column",
         height: "100vh"
     },
-    mapBox: {
-        height: "calc(100% - 32px)" // TODO: is it possible not to minus "32px"?
+    mapContainer: {
+        height: "calc(100% - 64px)" // TODO: is it possible not to minus "32px"?
     },
     menuButton: {
         marginRight: theme.spacing(2)
     },
+    logo: {
+        maxWidth: 30,
+        maxHeight: 30,
+        marginRight: theme.spacing(1)
+    },
     title: {
-        flexGrow: 1
+        display: "flex",
     }
 });
 
@@ -76,9 +82,12 @@ class Layout extends React.Component<any, any> {
         const appBar = (
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        都市更新天眼通
-                    </Typography>
+                    <Link className={classes.title} href={HOME} color="inherit">
+                        <img className={classes.logo} src="logo.png"/>
+                        <Typography variant="h6">
+                            都市更新天眼通
+                        </Typography>
+                    </Link>
                     {meetingPopover}
                     <IconButton aria-label="聽證會" color="inherit" disabled={!meetingNum} onClick={this.handleMeetingPopoverOpen}>
                         <Badge badgeContent={meetingNum} color="secondary">
@@ -98,7 +107,7 @@ class Layout extends React.Component<any, any> {
         return (
             <div className={classes.root}>
                 {appBar}
-                <Box className={classes.mapBox}>
+                <Box className={classes.mapContainer}>
                     <GoogleMapComponent />
                 </Box>
             </div>
