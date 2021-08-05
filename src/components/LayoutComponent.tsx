@@ -1,7 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
-import {AppBar, Badge, Link, IconButton, Popover, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Badge, Container, Link, IconButton, Popover, Toolbar, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -14,14 +14,21 @@ const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
 
 const styles = theme => ({
     root: {
-      flexGrow: 1,
+        display: "flex",
+        flexFlow: "column",
+        width: "100%",
+        height: "100vh",
+    },
+    mapContainer: {
+        width: "100%",
+        height: "calc(100% - 32px)"
     },
     menuButton: {
       marginRight: theme.spacing(2),
     },
     title: {
       flexGrow: 1,
-    },
+    }
 });
 
 @observer
@@ -91,9 +98,9 @@ class Layout extends React.Component<any, any> {
         return (
             <div className={classes.root}>
                 {appBar}
-                <main>
+                <Container className={classes.mapContainer}>
                     <GoogleMapComponent />
-                </main>
+                </Container>
             </div>
         );
     }
