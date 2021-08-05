@@ -61,8 +61,8 @@ class Layout extends React.Component<any, any> {
                     horizontal: 'center',
                 }}
             >
-                {AppStore.Instance.meetings?.map(meeting => {
-                    return <Typography className={classes.typography}>{meeting?.title}</Typography>
+                {AppStore.Instance.meetings?.map((meeting, index) => {
+                    return <Typography key={index} className={classes.typography}>{meeting?.title}</Typography>
                 })}
           </Popover>
         );
