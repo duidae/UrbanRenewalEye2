@@ -6,7 +6,5 @@ interface MeetingComponentProps {
 }
 
 export const MeetingComponent: React.FC<MeetingComponentProps> = props => {
-    return (
-        <Typography>{props.title}</Typography>
-    );
+    return <Typography>{props.title}</Typography>;
 };

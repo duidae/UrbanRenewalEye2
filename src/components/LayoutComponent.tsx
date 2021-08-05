@@ -3,9 +3,9 @@ import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
 import {AppBar, Box, Badge, Link, IconButton, Popover, Toolbar, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+import FacebookIcon from "@material-ui/icons/Facebook";
+import GitHubIcon from "@material-ui/icons/GitHub";
 import {AppStore} from "stores";
 import {GoogleMapComponent, MeetingComponent} from ".";
 
@@ -16,16 +16,16 @@ const styles = theme => ({
     root: {
         display: "flex",
         flexFlow: "column",
-        height: "100vh",
+        height: "100vh"
     },
     mapBox: {
         height: "calc(100% - 32px)"
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2)
     },
     title: {
-      flexGrow: 1,
+        flexGrow: 1
     }
 });
 
@@ -34,7 +34,7 @@ class Layout extends React.Component<any, any> {
     @observable isMeetingPopoverOpen: boolean;
     private meetingPopoverAnchor;
 
-    @action private handleMeetingPopoverOpen = (event) => {
+    @action private handleMeetingPopoverOpen = event => {
         this.meetingPopoverAnchor = event.currentTarget;
         this.isMeetingPopoverOpen = true;
     };
@@ -58,16 +58,18 @@ class Layout extends React.Component<any, any> {
                 anchorEl={this.meetingPopoverAnchor}
                 onClose={this.handleMeetingPopoverClose}
                 anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
+                    vertical: "bottom",
+                    horizontal: "center"
                 }}
                 transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
+                    vertical: "top",
+                    horizontal: "center"
                 }}
             >
-                {AppStore.Instance.meetings?.map((meeting, index) => {return <MeetingComponent key={index} title={meeting?.title}/>})}
-          </Popover>
+                {AppStore.Instance.meetings?.map((meeting, index) => {
+                    return <MeetingComponent key={index} title={meeting?.title} />;
+                })}
+            </Popover>
         );
 
         const meetingNum = AppStore.Instance.meetings?.length;
