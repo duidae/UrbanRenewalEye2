@@ -2,7 +2,7 @@ import React from "react";
 import {Typography} from "@material-ui/core";
 
 interface MeetingComponentProps {
-    title: string
+    title: string;
 }
 
 export const MeetingComponent: React.FC<MeetingComponentProps> = props => {

@@ -1,11 +1,11 @@
-import {Component} from "react";
+import React from "react";
 import GoogleMapReact from "google-map-react";
-import "./Map.scss";
+import "./GoogleMapComponent.scss";
 
 const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
 const RENEWAL_GEOJSON = "renewalUnits_sample.json";
 
-export class Map extends Component {
+export class GoogleMapComponent extends React.Component {
     private loadGeojson = (map: any, maps: any) => {
         map.data.setStyle((feature: any) => {
             const color = feature.getProperty("status") === "有效" ? "green" : "gray";

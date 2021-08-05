@@ -6,9 +6,8 @@ import {withStyles} from "@material-ui/core/styles";
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import {Map} from "./components/Map";
-import {AppStore} from "./stores";
-import {MeetingComponent} from "./components";
+import {AppStore} from "stores";
+import {GoogleMapComponent, MeetingComponent} from ".";
 
 const FB_FAN_PAGE = "https://www.facebook.com/urbanrenewaleye";
 const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
@@ -62,7 +61,7 @@ class Layout extends React.Component<any, any> {
                     horizontal: 'center',
                 }}
             >
-                {AppStore.Instance.meetings?.map(meeting => {return <MeetingComponent title={meeting?.title}/>})}
+                {AppStore.Instance.meetings?.map((meeting, index) => {return <MeetingComponent key={index} title={meeting?.title}/>})}
           </Popover>
         );
 
@@ -93,11 +92,11 @@ class Layout extends React.Component<any, any> {
             <div className={classes.root}>
                 {appBar}
                 <main>
-                    <Map/>
+                    <GoogleMapComponent />
                 </main>
             </div>
         );
     }
 }
 
-export default withStyles(styles as {})(Layout);
+export const LayoutComponent = withStyles(styles as {})(Layout);
