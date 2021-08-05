@@ -1,7 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
-import {AppBar, Badge, Container, Link, IconButton, Popover, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Box, Badge, Link, IconButton, Popover, Toolbar, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -16,11 +16,9 @@ const styles = theme => ({
     root: {
         display: "flex",
         flexFlow: "column",
-        width: "100%",
         height: "100vh",
     },
-    mapContainer: {
-        width: "100%",
+    mapBox: {
         height: "calc(100% - 32px)"
     },
     menuButton: {
@@ -98,9 +96,9 @@ class Layout extends React.Component<any, any> {
         return (
             <div className={classes.root}>
                 {appBar}
-                <Container className={classes.mapContainer}>
+                <Box className={classes.mapBox}>
                     <GoogleMapComponent />
-                </Container>
+                </Box>
             </div>
         );
     }
