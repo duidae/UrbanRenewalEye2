@@ -83,7 +83,6 @@ class Meetings extends React.Component<any, any> {
                         itemSize={120}
                     >
                         {({index, style}) => {
-                            //<div style={style}>{`[${index}]`}{appStore.meetings?.[index]?.title}</div>
                             const meeting = appStore.meetings?.[index];
                             const meetingType = meeting?.[MEETING_TYPE_KEY];
                             return (
@@ -95,7 +94,7 @@ class Meetings extends React.Component<any, any> {
                                                 {meetingType?.[0]}
                                             </Avatar>
                                         }
-                                        title={<Typography>{meeting?.title}</Typography>}
+                                        title={<Typography>{`[${index + 1}/${appStore.meetings?.length}]${meeting?.title}`}</Typography>}
                                         subheader={<Typography>{`${meeting?.["會議開始時間"]} - ${meeting?.["會議結束時間"]}, ${meeting?.["地點"]}`}</Typography>}
                                     />
                                 </Card>
