@@ -2,19 +2,12 @@ import React from "react";
 import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
 import {Badge, IconButton, Popover, Typography} from "@material-ui/core";
-import {withStyles} from "@material-ui/core/styles";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 
 import {AppStore} from "stores";
 
-const styles = theme => ({
-    appItems: {
-        marginRight: theme.spacing(2)
-    }
-});
-
 @observer
-class Meetings extends React.Component<any, any> {
+export class MeetingsComponent extends React.Component<any, any> {
     @observable isMeetingPopoverOpen: boolean;
     private meetingPopoverAnchor;
 
@@ -36,11 +29,10 @@ class Meetings extends React.Component<any, any> {
     };
 
     public render() {
-        const classes = this.props.classes;
         const appStore = AppStore.Instance;
 
         return (
-            <React.Fragment>
+            <div className={this.props.className}>
                 <Popover
                     open={this.isMeetingPopoverOpen}
                     anchorEl={this.meetingPopoverAnchor}
@@ -58,14 +50,12 @@ class Meetings extends React.Component<any, any> {
                         return <Typography key={index}>{meeting?.title}</Typography>;
                     })}
                 </Popover>
-                <IconButton className={classes.appItems} aria-label="聽證會" color="inherit" disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
+                <IconButton aria-label="聽證會" color="inherit" disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
                     <Badge badgeContent={appStore.meetings?.length} color="secondary">
                         <NotificationsActiveIcon />
                     </Badge>
                 </IconButton>
-            </React.Fragment>
+            </div>
         );
     }
 }
-
-export const MeetingsComponent = withStyles(styles as {})(Meetings);

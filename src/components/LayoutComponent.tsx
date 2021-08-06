@@ -28,6 +28,9 @@ const styles = theme => ({
     title: {
         display: "flex",
     },
+    appItems: {
+        marginRight: theme.spacing(2)
+    }
 });
 
 function Layout(props) {
@@ -40,7 +43,7 @@ function Layout(props) {
                     <Typography variant="h6" noWrap>都市更新天眼通</Typography>
                 </Link>
                 <div className={classes.grow} />
-                <MeetingsComponent />
+                <MeetingsComponent className={classes.appItems}/>
                 <Link className={classes.appItems} href={FB_FAN_PAGE} color="inherit" target="_blank">
                     <FacebookIcon />
                 </Link>
