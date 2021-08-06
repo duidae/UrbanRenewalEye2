@@ -1,4 +1,3 @@
-import React from "react";
 import {AppBar, Box, Link, Toolbar, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
@@ -31,7 +30,7 @@ const styles = theme => ({
     },
 });
 
-const Layout: React.FC<any> = props => {
+function Layout(props) {
     const classes = props.classes;
     const appBar = (
         <AppBar position="static">
@@ -60,6 +59,6 @@ const Layout: React.FC<any> = props => {
             </Box>
         </div>
     );
-};
+}
 
 export const LayoutComponent = withStyles(styles as {})(Layout);
