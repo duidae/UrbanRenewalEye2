@@ -8,12 +8,42 @@ import {FixedSizeList as List} from "react-window";
 
 import {AppStore} from "stores";
 
-const MEETING_TYPE_KEY = "類別";
+enum MeetingKey {
+    TYPE = "類別",
+    START_TIME = "會議開始時間",
+    END_TIME = "會議結束時間",
+    LOCATION = "地點"
+}
+
+enum MeetingType {
+    HEARING = "聽證會",
+    PUBLIC_HEARING = "公聽會",
+    REVIEW = "審議會",
+    PUBLIC_EXHIBITION = "公開展覽",
+    OTHERS = "其他"
+}
+
+const MEETING_TYPE_ACRONYM = new Map<MeetingType, string>([
+    [MeetingType.HEARING, "聽"],
+    [MeetingType.PUBLIC_HEARING, "公"],
+    [MeetingType.REVIEW, "審"],
+    [MeetingType.PUBLIC_EXHIBITION, "展"],
+    [MeetingType.OTHERS, "其"]
+]);
+/*
+const MEETING_TYPE_COLOR_MAP = new Map<MeetingType, string>([
+    [MeetingType.HEARING, "red"],
+    [MeetingType.PUBLIC_HEARING, "orange"],
+    [MeetingType.REVIEW, "blue"],
+    [MeetingType.PUBLIC_EXHIBITION, "green"]
+]);
+*/
+
 const MEETING_TYPE_COLOR_MAP = new Map<string, string>([
     ["聽證會", "red"],
     ["公聽會", "orange"],
-    ["審議會", "blue"],
-    ["公開展覽", "green"]
+    ["審議會", "green"],
+    ["公開展覽", "blue"]
 ]);
 const MEETING_TYPE_DEFAULT_COLOR = "gray";
 
@@ -84,18 +114,18 @@ class Meetings extends React.Component<any, any> {
                     >
                         {({index, style}) => {
                             const meeting = appStore.meetings?.[index];
-                            const meetingType = meeting?.[MEETING_TYPE_KEY];
+                            const meetingType = meeting?.[MeetingKey.TYPE];
                             return (
                                 <div style={style}>
                                     <Card>
                                         <CardHeader
                                             avatar={
-                                                <Avatar variant="square" aria-label={MEETING_TYPE_KEY} className={classes[MEETING_TYPE_COLOR_MAP.get(meetingType) ?? MEETING_TYPE_DEFAULT_COLOR]}>
-                                                    {meetingType?.[0]}
+                                                <Avatar variant="square" aria-label={MeetingKey.TYPE} className={classes[MEETING_TYPE_COLOR_MAP.get(meetingType) ?? MEETING_TYPE_DEFAULT_COLOR]}>
+                                                    {MEETING_TYPE_ACRONYM.get(meetingType as MeetingType)}
                                                 </Avatar>
                                             }
                                             title={<Typography>{`[${index + 1}/${appStore.meetings?.length}]${meeting?.title}`}</Typography>}
-                                            subheader={<Typography>{`${meeting?.["會議開始時間"]} - ${meeting?.["會議結束時間"]}, ${meeting?.["地點"]}`}</Typography>}
+                                            subheader={<Typography>{`${meeting?.[MeetingKey.START_TIME]} - ${meeting?.[MeetingKey.END_TIME]}, ${meeting?.[MeetingKey.LOCATION]}`}</Typography>}
                                         />
                                     </Card>
                                 </div>
