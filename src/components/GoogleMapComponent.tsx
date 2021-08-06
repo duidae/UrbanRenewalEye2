@@ -1,12 +1,30 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
+import {ButtonGroup, IconButton} from "@material-ui/core";
+import StreetviewIcon from '@material-ui/icons/Streetview';
+import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
 import "./GoogleMapComponent.scss";
 
 const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
 const RENEWAL_GEOJSON = "renewalUnits_sample.json";
 
 export class GoogleMapComponent extends React.Component {
-    private loadGeojson = (map: any, maps: any) => {
+    private controlPanelRef;
+    private layerPanelRef;
+    private adRef;
+
+    private loadMap = (map: any, maps: any) => {
+        this.initMap(map, maps);
+        this.loadData(map, maps);
+    };
+
+    private initMap = (map: any, maps: any) => {
+        map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(this.controlPanelRef);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.adRef);
+        map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(this.layerPanelRef);
+    };
+
+    private loadData = (map: any, maps: any) => {
         map.data.setStyle((feature: any) => {
             const color = feature.getProperty("status") === "有效" ? "green" : "gray";
             return {
@@ -45,8 +63,13 @@ export class GoogleMapComponent extends React.Component {
                     defaultZoom={14}
                     options={{streetViewControl: true, mapTypeControl: true}}
                     yesIWantToUseGoogleMapApiInternals={true}
-                    onGoogleApiLoaded={({map, maps}) => this.loadGeojson(map, maps)}
-                ></GoogleMapReact>
+                    onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
+                />
+                <ButtonGroup ref={ref => (this.controlPanelRef = ref)} color="primary" orientation="vertical">
+                    <IconButton><StreetviewIcon/></IconButton>
+                    <IconButton><CenterFocusStrongIcon/></IconButton>
+                </ButtonGroup>
+                <div ref={ref => (this.adRef = ref)}/>
             </div>
         );
     }
