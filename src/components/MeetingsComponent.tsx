@@ -87,17 +87,17 @@ class Meetings extends React.Component<any, any> {
                             const meetingType = meeting?.[MEETING_TYPE_KEY];
                             return (
                                 <div style={style}>
-                                <Card>
-                                    <CardHeader
-                                        avatar={
-                                            <Avatar aria-label={MEETING_TYPE_KEY} className={classes[MEETING_TYPE_COLOR_MAP.get(meetingType) ?? MEETING_TYPE_DEFAULT_COLOR]}>
-                                                {meetingType?.[0]}
-                                            </Avatar>
-                                        }
-                                        title={<Typography>{`[${index + 1}/${appStore.meetings?.length}]${meeting?.title}`}</Typography>}
-                                        subheader={<Typography>{`${meeting?.["會議開始時間"]} - ${meeting?.["會議結束時間"]}, ${meeting?.["地點"]}`}</Typography>}
-                                    />
-                                </Card>
+                                    <Card>
+                                        <CardHeader
+                                            avatar={
+                                                <Avatar aria-label={MEETING_TYPE_KEY} className={classes[MEETING_TYPE_COLOR_MAP.get(meetingType) ?? MEETING_TYPE_DEFAULT_COLOR]}>
+                                                    {meetingType?.[0]}
+                                                </Avatar>
+                                            }
+                                            title={<Typography>{`[${index + 1}/${appStore.meetings?.length}]${meeting?.title}`}</Typography>}
+                                            subheader={<Typography>{`${meeting?.["會議開始時間"]} - ${meeting?.["會議結束時間"]}, ${meeting?.["地點"]}`}</Typography>}
+                                        />
+                                    </Card>
                                 </div>
                             );
                         }}
