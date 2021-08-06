@@ -1,19 +1,20 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-import {Button, ButtonGroup, Fab, IconButton, Snackbar} from "@material-ui/core";
+import {Button, ButtonGroup, Fab} from "@material-ui/core";
 import StreetviewIcon from '@material-ui/icons/Streetview';
 import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
-import CloseIcon from '@material-ui/icons/Close';
 import LayersIcon from '@material-ui/icons/Layers';
 import "./GoogleMapComponent.scss";
+
+import {AdComponent} from ".";
 
 const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
 const RENEWAL_GEOJSON = "renewalUnits_sample.json";
 
 export class GoogleMapComponent extends React.Component {
     private controlPanelRef;
-    private layerPanelRef;
     private adRef;
+    private layerPanelRef;
 
     private loadMap = (map: any, maps: any) => {
         this.initMap(map, maps);
@@ -22,7 +23,6 @@ export class GoogleMapComponent extends React.Component {
 
     private initMap = (map: any, maps: any) => {
         map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(this.controlPanelRef);
-        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(this.adRef);
         map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(this.layerPanelRef);
     };
 
@@ -57,9 +57,6 @@ export class GoogleMapComponent extends React.Component {
         });
     };
 
-    private handleAdClose = () => {
-    };
-
     render() {
         return (
             <div className="map">
@@ -74,20 +71,6 @@ export class GoogleMapComponent extends React.Component {
                     <Button><StreetviewIcon/></Button>
                     <Button><CenterFocusStrongIcon/></Button>
                 </ButtonGroup>
-                <Snackbar
-                    ref={ref => (this.adRef = ref)}
-                    anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-                    open={true}
-                    onClose={this.handleAdClose}
-                    message="AD"
-                    action={
-                        <React.Fragment>
-                            <IconButton size="small" aria-label="close" color="inherit" onClick={this.handleAdClose}>
-                                <CloseIcon fontSize="small" />
-                            </IconButton>
-                        </React.Fragment>
-                    }
-                />
                 <Fab ref={ref => (this.layerPanelRef = ref)} variant="extended">
                     <LayersIcon />
                     Layer
