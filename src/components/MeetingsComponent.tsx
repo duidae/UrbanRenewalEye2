@@ -90,7 +90,7 @@ class Meetings extends React.Component<any, any> {
                                     <Card>
                                         <CardHeader
                                             avatar={
-                                                <Avatar aria-label={MEETING_TYPE_KEY} className={classes[MEETING_TYPE_COLOR_MAP.get(meetingType) ?? MEETING_TYPE_DEFAULT_COLOR]}>
+                                                <Avatar variant="square" aria-label={MEETING_TYPE_KEY} className={classes[MEETING_TYPE_COLOR_MAP.get(meetingType) ?? MEETING_TYPE_DEFAULT_COLOR]}>
                                                     {meetingType?.[0]}
                                                 </Avatar>
                                             }
