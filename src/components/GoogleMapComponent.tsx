@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-import {ButtonGroup, IconButton} from "@material-ui/core";
+import {Button, ButtonGroup} from "@material-ui/core";
 import StreetviewIcon from '@material-ui/icons/Streetview';
 import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
 import "./GoogleMapComponent.scss";
@@ -66,8 +66,8 @@ export class GoogleMapComponent extends React.Component {
                     onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
                 />
                 <ButtonGroup ref={ref => (this.controlPanelRef = ref)} color="primary" orientation="vertical">
-                    <IconButton><StreetviewIcon/></IconButton>
-                    <IconButton><CenterFocusStrongIcon/></IconButton>
+                    <Button><StreetviewIcon/></Button>
+                    <Button><CenterFocusStrongIcon/></Button>
                 </ButtonGroup>
                 <div ref={ref => (this.adRef = ref)}/>
             </div>
