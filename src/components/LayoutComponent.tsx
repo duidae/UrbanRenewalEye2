@@ -1,13 +1,10 @@
 import React from "react";
-import {observer} from "mobx-react";
-import {action, observable, makeObservable} from "mobx";
-import {AppBar, Box, Badge, Link, IconButton, Popover, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Box, Link, Toolbar, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import {AppStore} from "stores";
-import {GoogleMapComponent, MeetingComponent} from ".";
+
+import {GoogleMapComponent, MeetingsComponent} from ".";
 
 const HOME = "https://urbanrenewaleye.df.r.appspot.com/";
 const FB_FAN_PAGE = "https://www.facebook.com/urbanrenewaleye";
@@ -32,88 +29,37 @@ const styles = theme => ({
     title: {
         display: "flex",
     },
-    appItems: {
-        marginRight: theme.spacing(2)
-    }
 });
 
-@observer
-class Layout extends React.Component<any, any> {
-    @observable isMeetingPopoverOpen: boolean;
-    private meetingPopoverAnchor;
+const Layout: React.FC<any> = props => {
+    const classes = props.classes;
+    const appBar = (
+        <AppBar position="static">
+            <Toolbar>
+                <Link className={classes.title} color="inherit" href={HOME}>
+                    <img className={classes.logo} src="logo.png" alt="都市更新天眼通"/>
+                    <Typography variant="h6" noWrap>都市更新天眼通</Typography>
+                </Link>
+                <div className={classes.grow} />
+                <MeetingsComponent />
+                <Link className={classes.appItems} href={FB_FAN_PAGE} color="inherit" target="_blank">
+                    <FacebookIcon />
+                </Link>
+                <Link className={classes.appItems} href={GITHUB_REPO} color="inherit" target="_blank">
+                    <GitHubIcon />
+                </Link>
+            </Toolbar>
+        </AppBar>
+    );
 
-    @action private handleMeetingPopoverOpen = event => {
-        this.meetingPopoverAnchor = event.currentTarget;
-        this.isMeetingPopoverOpen = true;
-    };
-
-    @action private handleMeetingPopoverClose = () => {
-        this.meetingPopoverAnchor = null;
-        this.isMeetingPopoverOpen = false;
-    };
-
-    constructor(props) {
-        super(props);
-        makeObservable(this);
-        this.isMeetingPopoverOpen = false;
-    }
-
-    public render() {
-        const classes = this.props.classes;
-        const meetingPopover = (
-            <Popover
-                open={this.isMeetingPopoverOpen}
-                anchorEl={this.meetingPopoverAnchor}
-                onClose={this.handleMeetingPopoverClose}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "center"
-                }}
-                transformOrigin={{
-                    vertical: "top",
-                    horizontal: "center"
-                }}
-            >
-                {AppStore.Instance.meetings?.map((meeting, index) => {
-                    return <MeetingComponent key={index} title={meeting?.title} />;
-                })}
-            </Popover>
-        );
-
-        const meetingNum = AppStore.Instance.meetings?.length;
-        const appBar = (
-            <AppBar position="static">
-                <Toolbar>
-                    <Link className={classes.title} color="inherit" href={HOME}>
-                        <img className={classes.logo} src="logo.png" alt="都市更新天眼通"/>
-                        <Typography variant="h6" noWrap>都市更新天眼通</Typography>
-                    </Link>
-                    <div className={classes.grow} />
-                    {meetingPopover}
-                    <IconButton className={classes.appItems} aria-label="聽證會" color="inherit" disabled={!meetingNum} onClick={this.handleMeetingPopoverOpen}>
-                        <Badge badgeContent={meetingNum} color="secondary">
-                            <NotificationsActiveIcon />
-                        </Badge>
-                    </IconButton>
-                    <Link className={classes.appItems} href={FB_FAN_PAGE} color="inherit" target="_blank">
-                        <FacebookIcon />
-                    </Link>
-                    <Link className={classes.appItems} href={GITHUB_REPO} color="inherit" target="_blank">
-                        <GitHubIcon />
-                    </Link>
-                </Toolbar>
-            </AppBar>
-        );
-
-        return (
-            <div className={classes.root}>
-                {appBar}
-                <Box className={classes.mapContainer}>
-                    <GoogleMapComponent />
-                </Box>
-            </div>
-        );
-    }
-}
+    return (
+        <div className={classes.root}>
+            {appBar}
+            <Box className={classes.mapContainer}>
+                <GoogleMapComponent />
+            </Box>
+        </div>
+    );
+};
 
 export const LayoutComponent = withStyles(styles as {})(Layout);

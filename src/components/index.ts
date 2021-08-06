@@ -1,4 +1,4 @@
 export * from "./GoogleMapComponent";
-export * from "./MeetingComponent";
+export * from "./MeetingsComponent";
 export * from "./LayoutComponent";
 export * from "./OpenStreetMapComponent";
