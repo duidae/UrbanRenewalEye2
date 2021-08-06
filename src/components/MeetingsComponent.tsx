@@ -49,9 +49,9 @@ export class MeetingsComponent extends React.Component<any, any> {
                 >
                     <List
                         height={500}
+                        width={500}
                         itemCount={appStore.meetings?.length}
                         itemSize={50}
-                        width={500}
                     >
                         {({index, style}) => (
                             <div style={style}>{`[${index}]`}{appStore.meetings?.[index]?.title}</div>
