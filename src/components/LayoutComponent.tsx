@@ -1,4 +1,4 @@
-import {AppBar, Box, Link, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Box, Link, Toolbar, Tooltip, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
@@ -44,12 +44,16 @@ function Layout(props) {
                 </Link>
                 <div className={classes.grow} />
                 <MeetingsComponent className={classes.appItems}/>
-                <Link className={classes.appItems} href={FB_FAN_PAGE} color="inherit" target="_blank">
-                    <FacebookIcon />
-                </Link>
-                <Link className={classes.appItems} href={GITHUB_REPO} color="inherit" target="_blank">
-                    <GitHubIcon />
-                </Link>
+                <Tooltip title="Facebook">
+                    <Link className={classes.appItems} href={FB_FAN_PAGE} color="inherit" target="_blank">
+                        <FacebookIcon />
+                    </Link>
+                </Tooltip>
+                <Tooltip title="Github">
+                    <Link className={classes.appItems} href={GITHUB_REPO} color="inherit" target="_blank">
+                        <GitHubIcon />
+                    </Link>
+                </Tooltip>
             </Toolbar>
         </AppBar>
     );

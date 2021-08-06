@@ -1,7 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
-import {Avatar, Badge, Card, CardHeader, IconButton, Popover, Typography} from "@material-ui/core";
+import {Avatar, Badge, Card, CardHeader, IconButton, Popover, Tooltip, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 import {FixedSizeList as List} from "react-window";
@@ -133,11 +133,15 @@ class Meetings extends React.Component<any, any> {
                         }}
                     </List>
                 </Popover>
-                <IconButton aria-label="聽證會" color="inherit" disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
-                    <Badge badgeContent={appStore.meetings?.length} color="secondary">
-                        <NotificationsActiveIcon />
-                    </Badge>
-                </IconButton>
+                <Tooltip title="會議">
+                    <span>
+                        <IconButton aria-label="聽證會" color="inherit" disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
+                            <Badge badgeContent={appStore.meetings?.length} color="secondary">
+                                <NotificationsActiveIcon />
+                            </Badge>
+                        </IconButton>
+                    </span>
+                </Tooltip>
             </div>
         );
     }
