@@ -1,8 +1,9 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
-import {Badge, IconButton, Popover, Typography} from "@material-ui/core";
+import {Badge, IconButton, Popover} from "@material-ui/core";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
+import {FixedSizeList as List} from "react-window";
 
 import {AppStore} from "stores";
 
@@ -46,9 +47,16 @@ export class MeetingsComponent extends React.Component<any, any> {
                         horizontal: "center"
                     }}
                 >
-                    {appStore.meetings?.map((meeting, index) => {
-                        return <Typography key={index}>{meeting?.title}</Typography>;
-                    })}
+                    <List
+                        height={500}
+                        itemCount={appStore.meetings?.length}
+                        itemSize={50}
+                        width={500}
+                    >
+                        {({index, style}) => (
+                            <div style={style}>{`[${index}]`}{appStore.meetings?.[index]?.title}</div>
+                        )}
+                    </List>
                 </Popover>
                 <IconButton aria-label="聽證會" color="inherit" disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
                     <Badge badgeContent={appStore.meetings?.length} color="secondary">
