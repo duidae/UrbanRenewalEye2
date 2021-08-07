@@ -11,6 +11,7 @@ import StreetviewIcon from "@material-ui/icons/Streetview";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
 import DirectionsIcon from '@material-ui/icons/Directions';
 
+import {AppStore} from "stores";
 // import {MapControlComponent} from ".";
 
 const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
@@ -88,6 +89,10 @@ export class GoogleMapComponent extends React.Component {
         }
     };
 
+    private handleSideBySideModeClick = () => {
+        AppStore.Instance.setSideBySideMode();
+    };
+
     render() {
         return (
             <div className="map">
@@ -116,7 +121,7 @@ export class GoogleMapComponent extends React.Component {
                     <IconButton onClick={this.handleLocateMeClick} color="primary" aria-label="Locate Me">
                         <CenterFocusStrongIcon />
                     </IconButton>
-                    <IconButton color="primary" aria-label="Side by side mode">
+                    <IconButton onClick={this.handleSideBySideModeClick} color="primary" aria-label="Side by side mode">
                         <StreetviewIcon />
                     </IconButton>
                 </Paper>
