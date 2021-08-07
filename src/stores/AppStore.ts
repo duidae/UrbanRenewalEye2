@@ -11,6 +11,7 @@ export class AppStore {
     }
 
     @observable meetings: any;
+    @observable isSideBySideMode: boolean;
 
     private constructor() {
         makeObservable(this);
@@ -21,5 +22,6 @@ export class AppStore {
                     this.meetings = data;
                 })
             );
+        this.isSideBySideMode = false;
     }
 }

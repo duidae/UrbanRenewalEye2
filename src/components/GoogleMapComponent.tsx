@@ -1,21 +1,26 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-import {Button, ButtonGroup, Fab} from "@material-ui/core";
-import StreetviewIcon from "@material-ui/icons/Streetview";
-import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
+import {Fab} from "@material-ui/core";
 import LayersIcon from "@material-ui/icons/Layers";
 import "./GoogleMapComponent.scss";
 
-import {AdComponent} from ".";
+import {Divider, IconButton, InputBase, Paper} from "@material-ui/core";
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import StreetviewIcon from "@material-ui/icons/Streetview";
+import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
+import DirectionsIcon from '@material-ui/icons/Directions';
+
+// import {MapControlComponent} from ".";
 
 const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
 const RENEWAL_GEOJSON = "renewalUnits_sample.json";
 
 export class GoogleMapComponent extends React.Component {
-    private controlPanelRef;
+    private map;
+    private mapControlRef;
     private adRef;
     private layerPanelRef;
-    private map;
 
     private loadMap = (map: any, maps: any) => {
         this.initMap(map, maps);
@@ -24,7 +29,7 @@ export class GoogleMapComponent extends React.Component {
 
     private initMap = (map: any, maps: any) => {
         this.map = map;
-        map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(this.controlPanelRef);
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(this.mapControlRef);
         map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(this.layerPanelRef);
     };
 
@@ -93,14 +98,28 @@ export class GoogleMapComponent extends React.Component {
                     yesIWantToUseGoogleMapApiInternals={true}
                     onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
                 />
-                <ButtonGroup ref={ref => (this.controlPanelRef = ref)} color="primary" orientation="vertical">
-                    <Button>
-                        <StreetviewIcon />
-                    </Button>
-                    <Button onClick={this.handleLocateMeClick}>
+                <Paper ref={ref => (this.mapControlRef = ref)} component="form">
+                    <IconButton aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <InputBase
+                        placeholder="搜尋地址..."
+                        inputProps={{'aria-label': 'search google maps'}}
+                    />
+                    <IconButton aria-label="search">
+                        <SearchIcon />
+                    </IconButton>
+                    <Divider orientation="vertical" />
+                    <IconButton color="primary" aria-label="directions">
+                        <DirectionsIcon />
+                    </IconButton>
+                    <IconButton onClick={this.handleLocateMeClick} color="primary" aria-label="Locate Me">
                         <CenterFocusStrongIcon />
-                    </Button>
-                </ButtonGroup>
+                    </IconButton>
+                    <IconButton color="primary" aria-label="Side by side mode">
+                        <StreetviewIcon />
+                    </IconButton>
+                </Paper>
                 <Fab ref={ref => (this.layerPanelRef = ref)} variant="extended">
                     <LayersIcon />
                     Layer
