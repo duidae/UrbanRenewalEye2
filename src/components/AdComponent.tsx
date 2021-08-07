@@ -3,10 +3,9 @@ import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
 import {Button, Snackbar} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from "@material-ui/icons/Close";
 
-const styles = theme => ({
-});
+const styles = theme => ({});
 
 @observer
 class Ad extends React.Component<any, any> {
@@ -30,9 +29,7 @@ class Ad extends React.Component<any, any> {
     public render() {
         const classes = this.props.classes;
 
-        return (
-            this.isAdOpen && <Button onClick={this.handleAdClose}>close</Button>
-        );
+        return this.isAdOpen && <Button onClick={this.handleAdClose}>close</Button>;
     }
 }
 

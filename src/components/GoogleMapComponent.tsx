@@ -1,9 +1,9 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
 import {Button, ButtonGroup, Fab} from "@material-ui/core";
-import StreetviewIcon from '@material-ui/icons/Streetview';
-import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
-import LayersIcon from '@material-ui/icons/Layers';
+import StreetviewIcon from "@material-ui/icons/Streetview";
+import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
+import LayersIcon from "@material-ui/icons/Layers";
 import "./GoogleMapComponent.scss";
 
 import {AdComponent} from ".";
@@ -15,6 +15,7 @@ export class GoogleMapComponent extends React.Component {
     private controlPanelRef;
     private adRef;
     private layerPanelRef;
+    private map;
 
     private loadMap = (map: any, maps: any) => {
         this.initMap(map, maps);
@@ -22,6 +23,7 @@ export class GoogleMapComponent extends React.Component {
     };
 
     private initMap = (map: any, maps: any) => {
+        this.map = map;
         map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(this.controlPanelRef);
         map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(this.layerPanelRef);
     };
@@ -57,6 +59,30 @@ export class GoogleMapComponent extends React.Component {
         });
     };
 
+    private handleLocateMeClick = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position: GeolocationPosition) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    if (this.map) {
+                        this.map.setCenter(pos);
+                        const infoWindow = new google.maps.InfoWindow({position: pos, content: "我在這裡！"});
+                        infoWindow?.open({map: this.map, shouldFocus: false});
+                    }
+                },
+                () => {
+                    console.log("Error: The Geolocation service failed.");
+                }
+            );
+        } else {
+            // Browser doesn't support Geolocation
+            console.log("Error: Your browser doesn't support geolocation.");
+        }
+    };
+
     render() {
         return (
             <div className="map">
@@ -68,8 +94,12 @@ export class GoogleMapComponent extends React.Component {
                     onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
                 />
                 <ButtonGroup ref={ref => (this.controlPanelRef = ref)} color="primary" orientation="vertical">
-                    <Button><StreetviewIcon/></Button>
-                    <Button><CenterFocusStrongIcon/></Button>
+                    <Button>
+                        <StreetviewIcon />
+                    </Button>
+                    <Button onClick={this.handleLocateMeClick}>
+                        <CenterFocusStrongIcon />
+                    </Button>
                 </ButtonGroup>
                 <Fab ref={ref => (this.layerPanelRef = ref)} variant="extended">
                     <LayersIcon />

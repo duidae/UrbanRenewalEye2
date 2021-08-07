@@ -15,7 +15,7 @@ const styles = theme => ({
         height: "100vh"
     },
     grow: {
-        flexGrow: 1,
+        flexGrow: 1
     },
     mapContainer: {
         height: "calc(100% - 64px)" // TODO: is it possible not to minus "32px"?
@@ -26,7 +26,7 @@ const styles = theme => ({
         marginRight: theme.spacing(1)
     },
     title: {
-        display: "flex",
+        display: "flex"
     },
     appItems: {
         marginRight: theme.spacing(2)
@@ -39,11 +39,13 @@ function Layout(props) {
         <AppBar position="static">
             <Toolbar>
                 <Link className={classes.title} color="inherit" href={HOME}>
-                    <img className={classes.logo} src="logo.png" alt="都市更新天眼通"/>
-                    <Typography variant="h6" noWrap>都市更新天眼通</Typography>
+                    <img className={classes.logo} src="logo.png" alt="都市更新天眼通" />
+                    <Typography variant="h6" noWrap>
+                        都市更新天眼通
+                    </Typography>
                 </Link>
                 <div className={classes.grow} />
-                <MeetingsComponent className={classes.appItems}/>
+                <MeetingsComponent className={classes.appItems} />
                 <Tooltip title="Facebook">
                     <Link className={classes.appItems} href={FB_FAN_PAGE} color="inherit" target="_blank">
                         <FacebookIcon />

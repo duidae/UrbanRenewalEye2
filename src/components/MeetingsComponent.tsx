@@ -49,20 +49,20 @@ const MEETING_TYPE_DEFAULT_COLOR = "gray";
 
 const styles = theme => ({
     red: {
-        backgroundColor: "red",
+        backgroundColor: "red"
     },
     orange: {
-        backgroundColor: "orange",
+        backgroundColor: "orange"
     },
     blue: {
-        backgroundColor: "blue",
+        backgroundColor: "blue"
     },
     green: {
-        backgroundColor: "green",
+        backgroundColor: "green"
     },
     gray: {
-        backgroundColor: "gray",
-    },
+        backgroundColor: "gray"
+    }
 });
 
 @observer
@@ -106,12 +106,7 @@ class Meetings extends React.Component<any, any> {
                         horizontal: "center"
                     }}
                 >
-                    <List
-                        height={500}
-                        width={500}
-                        itemCount={appStore.meetings?.length}
-                        itemSize={120}
-                    >
+                    <List height={500} width={500} itemCount={appStore.meetings?.length} itemSize={120}>
                         {({index, style}) => {
                             const meeting = appStore.meetings?.[index];
                             const meetingType = meeting?.[MeetingKey.TYPE];
