@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import GoogleMapReact from "google-map-react";
 import "./GoogleMapComponent.scss";
 
-import {MapControlComponent} from ".";
+import {AdComponent, MapControlComponent} from ".";
 
 const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
 const RENEWAL_GEOJSON = "renewalUnits_sample.json";
@@ -18,6 +18,10 @@ export class GoogleMapComponent extends React.Component {
         const mapControl = document.createElement("div");
         ReactDOM.render(<MapControlComponent map={map} />, mapControl);
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(mapControl);
+
+        const ad = document.createElement("div");
+        ReactDOM.render(<AdComponent />, ad);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(ad);
     };
 
     private loadData = (map: any, maps: any) => {

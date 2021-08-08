@@ -14,7 +14,7 @@ const styles = theme => ({
         margin: 10,
         display: "flex",
         alignItems: "center",
-        width: 400,
+        width: 450,
         height: 40
     },
     input: {

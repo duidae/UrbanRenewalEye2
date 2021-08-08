@@ -1,11 +1,19 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
-import {Button, Snackbar} from "@material-ui/core";
+import {Paper} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 
-const styles = theme => ({});
+const styles = theme => ({
+    root: {
+        margin: 10,
+        display: "flex",
+        alignItems: "center",
+        width: 450,
+        height: 120
+    },
+});
 
 @observer
 class Ad extends React.Component<any, any> {
@@ -14,6 +22,7 @@ class Ad extends React.Component<any, any> {
     constructor(props) {
         super(props);
         makeObservable(this);
+
         this.isAdOpen = true;
         setInterval(() => {
             if (!this.isAdOpen) {
@@ -29,7 +38,10 @@ class Ad extends React.Component<any, any> {
     public render() {
         const classes = this.props.classes;
 
-        return this.isAdOpen && <Button onClick={this.handleAdClose}>close</Button>;
+        return (
+            <Paper component="form" className={classes.root}>
+            </Paper>
+        );
     }
 }
 
