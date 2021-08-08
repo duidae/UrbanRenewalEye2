@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import GoogleMapReact from "google-map-react";
-import "./GoogleMapComponent.scss";
 
 import {AdComponent, BadgesComponent, MapControlComponent} from ".";
 
@@ -61,15 +60,13 @@ export class GoogleMapComponent extends React.Component {
 
     render() {
         return (
-            <div className="map">
-                <GoogleMapReact
-                    defaultCenter={TAIPEI_CENTER}
-                    defaultZoom={14}
-                    options={{streetViewControl: true, mapTypeControl: true}}
-                    yesIWantToUseGoogleMapApiInternals={true}
-                    onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
-                />
-            </div>
+            <GoogleMapReact
+                defaultCenter={TAIPEI_CENTER}
+                defaultZoom={14}
+                options={{streetViewControl: true, mapTypeControl: true}}
+                yesIWantToUseGoogleMapApiInternals={true}
+                onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
+            />
         );
     }
 }
