@@ -128,11 +128,11 @@ class Meetings extends React.Component<any, any> {
                         }}
                     </List>
                 </Popover>
-                <Tooltip title="會議">
+                <Tooltip title="台北市政府都市更新會議列表">
                     <span>
                         <IconButton aria-label="聽證會" color="inherit" disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
                             <Badge badgeContent={appStore.meetings?.length} color="secondary">
-                                <NotificationsActiveIcon />
+                                <NotificationsActiveIcon fontSize="large" />
                             </Badge>
                         </IconButton>
                     </span>
