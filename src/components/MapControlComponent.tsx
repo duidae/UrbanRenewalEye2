@@ -64,8 +64,8 @@ class MapControl extends React.Component<any, any> {
         const classes = this.props.classes;
         return (
             <Paper component="form" className={classes.root}>
-                <Tooltip title="圖層">
-                    <IconButton className={classes.iconButton} aria-label="圖層">
+                <Tooltip title="都更圖層">
+                    <IconButton className={classes.iconButton} aria-label="都更圖層">
                         <LayersIcon />
                     </IconButton>
                 </Tooltip>
