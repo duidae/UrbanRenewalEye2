@@ -1,12 +1,11 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {Divider, IconButton, InputBase, Paper} from "@material-ui/core";
+import {Divider, IconButton, InputBase, Paper, Tooltip} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+import LayersIcon from "@material-ui/icons/Layers";
 import SearchIcon from "@material-ui/icons/Search";
 import StreetviewIcon from "@material-ui/icons/Streetview";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
-import DirectionsIcon from "@material-ui/icons/Directions";
 
 import {AppStore} from "stores";
 
@@ -43,7 +42,7 @@ class MapControl extends React.Component<any, any> {
                     };
                     if (this.props.map) {
                         this.props.map.setCenter(pos);
-                        const infoWindow = new google.maps.InfoWindow({position: pos, content: "我在這裡！"});
+                        const infoWindow = new google.maps.InfoWindow({position: pos, content: "我在這！"});
                         infoWindow?.open({map: this.props.map, shouldFocus: false});
                     }
                 },
@@ -65,23 +64,26 @@ class MapControl extends React.Component<any, any> {
         const classes = this.props.classes;
         return (
             <Paper component="form" className={classes.root}>
-                <IconButton className={classes.iconButton} aria-label="menu">
-                    <MenuIcon />
-                </IconButton>
+                <Tooltip title="圖層">
+                    <IconButton className={classes.iconButton} aria-label="圖層">
+                        <LayersIcon />
+                    </IconButton>
+                </Tooltip>
                 <InputBase className={classes.input} placeholder="搜尋地址" inputProps={{"aria-label": "search google maps"}} />
                 <IconButton className={classes.iconButton} aria-label="search">
                     <SearchIcon />
                 </IconButton>
                 <Divider className={classes.divider} orientation="vertical" />
-                <IconButton color="primary" className={classes.iconButton} aria-label="directions">
-                    <DirectionsIcon />
-                </IconButton>
-                <IconButton onClick={this.handleLocateMeClick} color="primary" className={classes.iconButton} aria-label="directions">
-                    <CenterFocusStrongIcon />
-                </IconButton>
-                <IconButton onClick={this.handleSideBySideModeClick} color="primary" className={classes.iconButton} aria-label="directions">
-                    <StreetviewIcon />
-                </IconButton>
+                <Tooltip title="我在哪？">
+                    <IconButton onClick={this.handleLocateMeClick} color="primary" className={classes.iconButton} aria-label="directions">
+                        <CenterFocusStrongIcon />
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="街景模式">
+                    <IconButton onClick={this.handleSideBySideModeClick} color="primary" className={classes.iconButton} aria-label="directions">
+                        <StreetviewIcon />
+                    </IconButton>
+                </Tooltip>
             </Paper>
         );
     }

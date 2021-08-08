@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import GoogleMapReact from "google-map-react";
-import {Fab} from "@material-ui/core";
-import LayersIcon from "@material-ui/icons/Layers";
 import "./GoogleMapComponent.scss";
 
 import {MapControlComponent} from ".";
@@ -63,10 +61,6 @@ export class GoogleMapComponent extends React.Component {
                     yesIWantToUseGoogleMapApiInternals={true}
                     onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
                 />
-                <Fab variant="extended">
-                    <LayersIcon />
-                    Layer
-                </Fab>
             </div>
         );
     }
