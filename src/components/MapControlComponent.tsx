@@ -25,6 +25,7 @@ const styles = theme => ({
     title: {
         height: 40,
         display: "flex",
+        alignItems: "center",
         marginRight: theme.spacing(3)
     },
     control: {
@@ -82,7 +83,7 @@ class MapControl extends React.Component<any, any> {
             <div className={classes.root}>
                 <Link className={classes.title} color="inherit" href={HOME}>
                     <img className={classes.logo} src="logo.png" alt="都市更新天眼通" />
-                    <Typography variant="h6" noWrap>都市更新天眼通</Typography>
+                    <Typography color="primary" variant="h6" noWrap>都市更新天眼通</Typography>
                 </Link>
                 <Paper component="form" className={classes.control}>
                     <Tooltip title="都更圖層">
