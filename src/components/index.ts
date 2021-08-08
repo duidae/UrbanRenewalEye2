@@ -1,4 +1,5 @@
 export * from "./AdComponent";
+export * from "./BadgesComponent";
 export * from "./GoogleMapComponent";
 export * from "./MapControlComponent";
 export * from "./MeetingsComponent";

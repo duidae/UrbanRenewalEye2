@@ -23,7 +23,7 @@ const styles = theme => ({
         marginRight: theme.spacing(1)
     },
     title: { // TODO: change background to theme color
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: "rgba(255, 255, 255, 0.9)",
         padding: "0 5px 0 5px",
         boxShadow: "0 0 10px white",
         borderRadius: "3px",
