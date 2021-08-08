@@ -22,7 +22,11 @@ const styles = theme => ({
         maxHeight: 30,
         marginRight: theme.spacing(1)
     },
-    title: {
+    title: { // TODO: change background to theme color
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        padding: "0 5px 0 5px",
+        boxShadow: "0 0 10px white",
+        borderRadius: "3px",
         height: 40,
         display: "flex",
         alignItems: "center",
