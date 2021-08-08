@@ -1,6 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {Divider, IconButton, InputBase, Paper, Tooltip} from "@material-ui/core";
+import {Divider, Link, IconButton, InputBase, Paper, Tooltip, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import LayersIcon from "@material-ui/icons/Layers";
 import SearchIcon from "@material-ui/icons/Search";
@@ -9,9 +9,25 @@ import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
 
 import {AppStore} from "stores";
 
+const HOME = "https://urbanrenewaleye.df.r.appspot.com/";
+
 const styles = theme => ({
     root: {
-        margin: 10,
+        display: "flex",
+        flexDirection: "row",
+        margin: 10
+    },
+    logo: {
+        maxWidth: 30,
+        maxHeight: 30,
+        marginRight: theme.spacing(1)
+    },
+    title: {
+        height: 40,
+        display: "flex",
+        marginRight: theme.spacing(3)
+    },
+    control: {
         display: "flex",
         alignItems: "center",
         width: 450,
@@ -63,28 +79,34 @@ class MapControl extends React.Component<any, any> {
     public render() {
         const classes = this.props.classes;
         return (
-            <Paper component="form" className={classes.root}>
-                <Tooltip title="都更圖層">
-                    <IconButton className={classes.iconButton} aria-label="都更圖層">
-                        <LayersIcon />
+            <div className={classes.root}>
+                <Link className={classes.title} color="inherit" href={HOME}>
+                    <img className={classes.logo} src="logo.png" alt="都市更新天眼通" />
+                    <Typography variant="h6" noWrap>都市更新天眼通</Typography>
+                </Link>
+                <Paper component="form" className={classes.control}>
+                    <Tooltip title="都更圖層">
+                        <IconButton className={classes.iconButton} aria-label="都更圖層">
+                            <LayersIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <InputBase className={classes.input} placeholder="搜尋地址" inputProps={{"aria-label": "search google maps"}} />
+                    <IconButton className={classes.iconButton} aria-label="search">
+                        <SearchIcon />
                     </IconButton>
-                </Tooltip>
-                <InputBase className={classes.input} placeholder="搜尋地址" inputProps={{"aria-label": "search google maps"}} />
-                <IconButton className={classes.iconButton} aria-label="search">
-                    <SearchIcon />
-                </IconButton>
-                <Divider className={classes.divider} orientation="vertical" />
-                <Tooltip title="我在哪？">
-                    <IconButton onClick={this.handleLocateMeClick} color="primary" className={classes.iconButton} aria-label="directions">
-                        <CenterFocusStrongIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="街景模式">
-                    <IconButton onClick={this.handleSideBySideModeClick} color="primary" className={classes.iconButton} aria-label="directions">
-                        <StreetviewIcon />
-                    </IconButton>
-                </Tooltip>
-            </Paper>
+                    <Divider className={classes.divider} orientation="vertical" />
+                    <Tooltip title="我在哪？">
+                        <IconButton onClick={this.handleLocateMeClick} color="primary" className={classes.iconButton} aria-label="directions">
+                            <CenterFocusStrongIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="街景模式">
+                        <IconButton onClick={this.handleSideBySideModeClick} color="primary" className={classes.iconButton} aria-label="directions">
+                            <StreetviewIcon />
+                        </IconButton>
+                    </Tooltip>
+                </Paper>
+            </div>
         );
     }
 }
