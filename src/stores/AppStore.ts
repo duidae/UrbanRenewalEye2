@@ -1,4 +1,4 @@
-import {action, observable, makeObservable, runInAction} from "mobx";
+import {observable, makeObservable, runInAction} from "mobx";
 
 export class AppStore {
     private static staticInstance: AppStore;
@@ -11,7 +11,6 @@ export class AppStore {
     }
 
     @observable meetings: any;
-    @observable isSideBySideMode: boolean;
 
     private constructor() {
         makeObservable(this);
@@ -22,10 +21,5 @@ export class AppStore {
                     this.meetings = data;
                 })
             );
-        this.isSideBySideMode = false;
     }
-
-    @action setSideBySideMode = () => {
-        this.isSideBySideMode = !this.isSideBySideMode;
-    };
 }

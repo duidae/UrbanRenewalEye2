@@ -1,8 +1,8 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {Divider, Link, IconButton, InputBase, Paper, Tooltip, Typography} from "@material-ui/core";
-import {ToggleButton} from "@material-ui/lab";
 import {withStyles} from "@material-ui/core/styles";
+import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from "@material-ui/icons/Search";
 import StreetviewIcon from "@material-ui/icons/Streetview";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
@@ -57,6 +57,9 @@ const styles = theme => ({
 
 @observer
 class MapControl extends React.Component<any, any> {
+    private handleMenuClick = () => {
+    };
+
     private handleLocateMeClick = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -81,10 +84,6 @@ class MapControl extends React.Component<any, any> {
         }
     };
 
-    private handleSideBySideModeClick = () => {
-        AppStore.Instance.setSideBySideMode();
-    };
-
     public render() {
         const classes = this.props.classes;
         return (
@@ -95,9 +94,9 @@ class MapControl extends React.Component<any, any> {
                 </Link>
                 <Paper component="form" className={classes.control}>
                     <Tooltip title="街景模式">
-                        <ToggleButton className={classes.toggleButton} value="streetView" selected={AppStore.Instance.isSideBySideMode} onChange={this.handleSideBySideModeClick}>
-                            <StreetviewIcon color={AppStore.Instance.isSideBySideMode ? "primary" : undefined} />
-                        </ToggleButton>
+                        <IconButton color="primary" className={classes.iconButton} onClick={this.handleMenuClick}>
+                            <MenuIcon />
+                        </IconButton>
                     </Tooltip>
                     <InputBase className={classes.input} placeholder="搜尋地址" inputProps={{"aria-label": "search google maps"}} />
                     <IconButton className={classes.iconButton} aria-label="search">
