@@ -1,8 +1,8 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {Divider, Link, IconButton, InputBase, Paper, Tooltip, Typography} from "@material-ui/core";
+import {ToggleButton} from "@material-ui/lab";
 import {withStyles} from "@material-ui/core/styles";
-import LayersIcon from "@material-ui/icons/Layers";
 import SearchIcon from "@material-ui/icons/Search";
 import StreetviewIcon from "@material-ui/icons/Streetview";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
@@ -44,6 +44,10 @@ const styles = theme => ({
     },
     iconButton: {
         padding: 10
+    },
+    toggleButton: {
+        border: 'none',
+        height: 40
     },
     divider: {
         height: 28,
@@ -90,10 +94,10 @@ class MapControl extends React.Component<any, any> {
                     <Typography color="primary" variant="h6" noWrap>都市更新天眼通</Typography>
                 </Link>
                 <Paper component="form" className={classes.control}>
-                    <Tooltip title="都更圖層">
-                        <IconButton className={classes.iconButton} aria-label="都更圖層">
-                            <LayersIcon />
-                        </IconButton>
+                    <Tooltip title="街景模式">
+                        <ToggleButton className={classes.toggleButton} value="streetView" selected={AppStore.Instance.isSideBySideMode} onChange={this.handleSideBySideModeClick}>
+                            <StreetviewIcon color={AppStore.Instance.isSideBySideMode ? "primary" : undefined} />
+                        </ToggleButton>
                     </Tooltip>
                     <InputBase className={classes.input} placeholder="搜尋地址" inputProps={{"aria-label": "search google maps"}} />
                     <IconButton className={classes.iconButton} aria-label="search">
@@ -103,11 +107,6 @@ class MapControl extends React.Component<any, any> {
                     <Tooltip title="我在哪？">
                         <IconButton onClick={this.handleLocateMeClick} color="primary" className={classes.iconButton} aria-label="directions">
                             <CenterFocusStrongIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="街景模式">
-                        <IconButton onClick={this.handleSideBySideModeClick} color="primary" className={classes.iconButton} aria-label="directions">
-                            <StreetviewIcon />
                         </IconButton>
                     </Tooltip>
                 </Paper>
