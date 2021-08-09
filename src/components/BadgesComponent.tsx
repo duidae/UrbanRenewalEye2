@@ -10,9 +10,11 @@ const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
 
 const styles = theme => ({
     root: {
-       display: "flex",
-       alignItems: "center",
-       margin: 10
+        display: "flex",
+        alignItems: "center",
+        '& > *': {
+            margin: theme.spacing(1),
+        },
     },
     badge: {
         width: 40,
