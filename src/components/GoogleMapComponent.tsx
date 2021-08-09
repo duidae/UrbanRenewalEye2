@@ -1,13 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {observer} from "mobx-react";
 import GoogleMapReact from "google-map-react";
+import {withStyles} from "@material-ui/core/styles";
 
 import {AdComponent, BadgesComponent, MapControlComponent} from ".";
+import {AppStore} from "stores";
 
 const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
 const RENEWAL_GEOJSON = "renewalUnits_sample.json";
 
-export class GoogleMapComponent extends React.Component {
+const styles = theme => ({
+    fullMap: {
+        height: "100vh"
+    },
+    sideBySideMap: {
+        width: "50%",
+        height: "100vh"
+    },
+    sideBySideStreetView: {
+        width: "50%"
+    }
+});
+
+@observer
+class GoogleMap extends React.Component<any> {
     private loadMap = (map: any, maps: any) => {
         this.initMap(map, maps);
         this.loadData(map, maps);
@@ -19,8 +36,8 @@ export class GoogleMapComponent extends React.Component {
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(mapControl);
 
         const badges = document.createElement("div");
-        ReactDOM.render(<BadgesComponent />, badges);
-        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(badges);
+        ReactDOM.render(<BadgesComponent orientation={AppStore.Instance.isSideBySideMode ? "vertical" : "horizontal"} />, badges);
+        map.controls[AppStore.Instance.isSideBySideMode ? google.maps.ControlPosition.RIGHT_CENTER: google.maps.ControlPosition.TOP_RIGHT].push(badges);
 
         const ad = document.createElement("div");
         ReactDOM.render(<AdComponent />, ad);
@@ -59,14 +76,27 @@ export class GoogleMapComponent extends React.Component {
     };
 
     render() {
+        const classes = this.props.classes;
+        const isSideBySideMode = AppStore.Instance.isSideBySideMode;
+
         return (
-            <GoogleMapReact
-                defaultCenter={TAIPEI_CENTER}
-                defaultZoom={14}
-                options={{streetViewControl: true, mapTypeControl: true}}
-                yesIWantToUseGoogleMapApiInternals={true}
-                onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
-            />
+            <React.Fragment>
+                <div className={isSideBySideMode ? classes.sideBySideMap : classes.fullMap}>
+                    <GoogleMapReact
+                        defaultCenter={TAIPEI_CENTER}
+                        defaultZoom={14}
+                        options={{streetViewControl: true, mapTypeControl: true}}
+                        yesIWantToUseGoogleMapApiInternals={true}
+                        onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
+                    />
+                </div>
+                {isSideBySideMode &&
+                <div className={classes.sideBySideStreetView}>
+                </div>
+                }
+            </React.Fragment>
         );
     }
 }
+
+export const GoogleMapComponent = withStyles(styles as {})(GoogleMap);

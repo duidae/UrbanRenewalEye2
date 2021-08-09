@@ -9,10 +9,17 @@ const FB_FAN_PAGE = "https://www.facebook.com/urbanrenewaleye";
 const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
 
 const styles = theme => ({
-    root: {
+    vertical: { // TODO: remove duplicates
        display: "flex",
+       flexDirection: "column",
        alignItems: "center",
        margin: 10
+    },
+    horizontal: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        margin: 10
     },
     badge: {
         width: 40,
@@ -24,8 +31,9 @@ const styles = theme => ({
 
 function Badges(props) {
     const classes = props.classes;
+
     return (
-        <div className={classes.root}>
+        <div className={props.orientation === "vertical" ? classes.vertical : classes.horizontal}>
             <MeetingsComponent className={classes.badge} />
             <Tooltip title="Facebook">
                 <Link className={classes.badge} href={FB_FAN_PAGE} color="inherit" target="_blank">

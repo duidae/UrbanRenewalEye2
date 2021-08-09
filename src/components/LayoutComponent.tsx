@@ -1,20 +1,7 @@
-import {withStyles} from "@material-ui/core/styles";
-
 import {GoogleMapComponent} from ".";
 
-const styles = theme => ({
-    root: {
-        height: "100vh"
-    },
-});
-
-function Layout(props) {
-    const classes = props.classes;
+export const LayoutComponent = props => {
     return (
-        <div className={classes.root}>
-            <GoogleMapComponent />
-        </div>
+        <GoogleMapComponent />
     );
-}
-
-export const LayoutComponent = withStyles(styles as {})(Layout);
+};
