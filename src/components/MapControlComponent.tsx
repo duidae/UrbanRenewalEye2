@@ -28,7 +28,10 @@ const styles = theme => ({
         height: 40,
         display: "flex",
         alignItems: "center",
-        marginRight: theme.spacing(3)
+        marginRight: theme.spacing(3),
+        "&:hover": {
+            textDecoration: "none",
+        }
     },
     control: {
         display: "flex",
@@ -66,14 +69,16 @@ class MapControl extends React.Component<any, any> {
 
         return (
             <div className={classes.root}>
-                <Link className={classes.title} color="inherit" href={HOME}>
-                    <img className={classes.logo} src="logo.png" alt="都市更新天眼通" />
-                    <Typography color="primary" variant="h6" noWrap>
-                        都市更新天眼通
-                    </Typography>
-                </Link>
+                <Tooltip title="首頁">
+                    <Link className={classes.title} color="inherit" href={HOME}>
+                        <img className={classes.logo} src="logo.png" alt="都市更新天眼通" />
+                        <Typography color="primary" variant="h6" noWrap>
+                            都市更新天眼通
+                        </Typography>
+                    </Link>
+                </Tooltip>
                 <Paper component="form" className={classes.control}>
-                    <Tooltip title="街景模式">
+                    <Tooltip title="">
                         <IconButton color="primary" className={classes.iconButton} onClick={this.handleMenuClick}>
                             <MenuIcon />
                         </IconButton>
