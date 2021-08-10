@@ -30,7 +30,7 @@ const styles = theme => ({
         alignItems: "center",
         marginRight: theme.spacing(3),
         "&:hover": {
-            textDecoration: "none",
+            textDecoration: "none"
         }
     },
     control: {
