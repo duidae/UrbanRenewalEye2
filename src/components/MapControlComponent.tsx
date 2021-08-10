@@ -1,8 +1,8 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {Divider, Link, IconButton, InputBase, Paper, Tooltip, Typography} from "@material-ui/core";
+import {Divider, Link, IconButton, Paper, Tooltip, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
 
@@ -19,7 +19,8 @@ const styles = theme => ({
         maxHeight: 30,
         marginRight: theme.spacing(1)
     },
-    title: { // TODO: change background to theme color
+    title: {
+        // TODO: change background to theme color
         backgroundColor: "rgba(255, 255, 255, 0.9)",
         padding: "0 5px 0 5px",
         boxShadow: "0 0 10px white",
@@ -36,14 +37,18 @@ const styles = theme => ({
         height: 40
     },
     input: {
-        marginLeft: theme.spacing(1),
-        flex: 1
+        flex: 1,
+        fontSize: 16,
+        border: "none",
+        "&:focus": {
+            outline: "none"
+        }
     },
     iconButton: {
         padding: 10
     },
     toggleButton: {
-        border: 'none',
+        border: "none",
         height: 40
     },
     divider: {
@@ -54,8 +59,7 @@ const styles = theme => ({
 
 @observer
 class MapControl extends React.Component<any, any> {
-    private handleMenuClick = () => {
-    };
+    private handleMenuClick = () => {};
 
     public render() {
         const classes = this.props.classes;
@@ -64,7 +68,9 @@ class MapControl extends React.Component<any, any> {
             <div className={classes.root}>
                 <Link className={classes.title} color="inherit" href={HOME}>
                     <img className={classes.logo} src="logo.png" alt="都市更新天眼通" />
-                    <Typography color="primary" variant="h6" noWrap>都市更新天眼通</Typography>
+                    <Typography color="primary" variant="h6" noWrap>
+                        都市更新天眼通
+                    </Typography>
                 </Link>
                 <Paper component="form" className={classes.control}>
                     <Tooltip title="街景模式">
@@ -72,7 +78,7 @@ class MapControl extends React.Component<any, any> {
                             <MenuIcon />
                         </IconButton>
                     </Tooltip>
-                    <InputBase className={classes.input} placeholder="搜尋地址" inputProps={{"aria-label": "search google maps"}} />
+                    <input className={classes.input} ref={ref => this.props.setInputRef(ref)} placeholder="搜尋地址" />
                     <IconButton className={classes.iconButton} aria-label="search">
                         <SearchIcon />
                     </IconButton>

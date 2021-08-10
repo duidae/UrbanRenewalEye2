@@ -12,12 +12,13 @@ const RENEWAL_GEOJSON = "renewalUnits_sample.json";
 const styles = theme => ({
     map: {
         height: "100vh"
-    },
+    }
 });
 
 @observer
 class GoogleMap extends React.Component<any> {
     private map;
+    private addressInput;
 
     private loadMap = (map: any, maps: any) => {
         this.initMap(map, maps);
@@ -27,14 +28,76 @@ class GoogleMap extends React.Component<any> {
     private initMap = (map: any, maps: any) => {
         this.map = map;
 
+        // setup map control widget
         const mapControl = document.createElement("div");
-        ReactDOM.render(<MapControlComponent locateMe={this.locateMe} />, mapControl);
+        ReactDOM.render(
+            <MapControlComponent
+                locateMe={this.locateMe}
+                setInputRef={ref => {
+                    this.addressInput = ref;
+                }}
+            />,
+            mapControl
+        );
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(mapControl);
+        const searchBox = new google.maps.places.SearchBox(this.addressInput);
+        map.addListener("bounds_changed", () => {
+            searchBox.setBounds(map.getBounds() as google.maps.LatLngBounds);
+        });
+        let markers: google.maps.Marker[] = []; // TODO: add marker
+        searchBox.addListener("places_changed", () => {
+            const places = searchBox.getPlaces();
+            if (places?.length === 0) {
+                return;
+            }
 
+            // Clear out the old markers.
+            markers.forEach(marker => {
+                marker.setMap(null);
+            });
+            markers = [];
+
+            // For each place, get the icon, name and location.
+            const bounds = new google.maps.LatLngBounds();
+            places?.forEach(place => {
+                if (!place.geometry || !place.geometry.location) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                const icon = {
+                    url: place.icon as string,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25)
+                };
+
+                // Create a marker for each place.
+                markers.push(
+                    new google.maps.Marker({
+                        map,
+                        icon,
+                        title: place.name,
+                        position: place.geometry.location
+                    })
+                );
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+
+        // setup badges
         const badges = document.createElement("div");
         ReactDOM.render(<BadgesComponent />, badges);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(badges);
 
+        // set ad area
         const ad = document.createElement("div");
         ReactDOM.render(<AdComponent />, ad);
         map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(ad);
@@ -101,6 +164,10 @@ class GoogleMap extends React.Component<any> {
         return (
             <div className={classes.map}>
                 <GoogleMapReact
+                    bootstrapURLKeys={{
+                        key: "",
+                        libraries: ["places"]
+                    }}
                     defaultCenter={TAIPEI_CENTER}
                     defaultZoom={14}
                     options={{streetViewControl: true, mapTypeControl: true}}

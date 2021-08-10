@@ -12,7 +12,7 @@ const styles = theme => ({
         alignItems: "center",
         width: 450,
         height: 120
-    },
+    }
 });
 
 @observer
@@ -38,10 +38,7 @@ class Ad extends React.Component<any, any> {
     public render() {
         const classes = this.props.classes;
 
-        return (
-            <Paper component="form" className={classes.root}>
-            </Paper>
-        );
+        return <Paper component="form" className={classes.root}></Paper>;
     }
 }
 

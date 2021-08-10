@@ -12,15 +12,15 @@ const styles = theme => ({
     root: {
         display: "flex",
         alignItems: "center",
-        '& > *': {
-            margin: theme.spacing(1),
-        },
+        "& > *": {
+            margin: theme.spacing(1)
+        }
     },
     badge: {
         width: 40,
         height: 40,
         display: "flex",
-        alignItems: "center",
+        alignItems: "center"
     }
 });
 
