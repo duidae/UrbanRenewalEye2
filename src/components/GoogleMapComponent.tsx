@@ -17,14 +17,18 @@ const styles = theme => ({
 
 @observer
 class GoogleMap extends React.Component<any> {
+    private map;
+
     private loadMap = (map: any, maps: any) => {
         this.initMap(map, maps);
         this.loadData(map, maps);
     };
 
     private initMap = (map: any, maps: any) => {
+        this.map = map;
+
         const mapControl = document.createElement("div");
-        ReactDOM.render(<MapControlComponent map={map} />, mapControl);
+        ReactDOM.render(<MapControlComponent locateMe={this.locateMe} />, mapControl);
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(mapControl);
 
         const badges = document.createElement("div");
@@ -65,6 +69,30 @@ class GoogleMap extends React.Component<any> {
         map.data.addListener("mouseout", (event: any) => {
             mouseoverInfoWindow?.close();
         });
+    };
+
+    private locateMe = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position: GeolocationPosition) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    if (this.map) {
+                        this.map.setCenter(pos);
+                        const infoWindow = new google.maps.InfoWindow({position: pos, content: "我在這！"});
+                        infoWindow?.open({map: this.map, shouldFocus: false});
+                    }
+                },
+                () => {
+                    console.log("Error: The Geolocation service failed.");
+                }
+            );
+        } else {
+            // Browser doesn't support Geolocation
+            console.log("Error: Your browser doesn't support geolocation.");
+        }
     };
 
     render() {

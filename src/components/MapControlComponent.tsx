@@ -4,10 +4,7 @@ import {Divider, Link, IconButton, InputBase, Paper, Tooltip, Typography} from "
 import {withStyles} from "@material-ui/core/styles";
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from "@material-ui/icons/Search";
-import StreetviewIcon from "@material-ui/icons/Streetview";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
-
-import {AppStore} from "stores";
 
 const HOME = "https://urbanrenewaleye.df.r.appspot.com/";
 
@@ -60,32 +57,9 @@ class MapControl extends React.Component<any, any> {
     private handleMenuClick = () => {
     };
 
-    private handleLocateMeClick = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position: GeolocationPosition) => {
-                    const pos = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    if (this.props.map) {
-                        this.props.map.setCenter(pos);
-                        const infoWindow = new google.maps.InfoWindow({position: pos, content: "我在這！"});
-                        infoWindow?.open({map: this.props.map, shouldFocus: false});
-                    }
-                },
-                () => {
-                    console.log("Error: The Geolocation service failed.");
-                }
-            );
-        } else {
-            // Browser doesn't support Geolocation
-            console.log("Error: Your browser doesn't support geolocation.");
-        }
-    };
-
     public render() {
         const classes = this.props.classes;
+
         return (
             <div className={classes.root}>
                 <Link className={classes.title} color="inherit" href={HOME}>
@@ -104,7 +78,7 @@ class MapControl extends React.Component<any, any> {
                     </IconButton>
                     <Divider className={classes.divider} orientation="vertical" />
                     <Tooltip title="我在哪？">
-                        <IconButton onClick={this.handleLocateMeClick} color="primary" className={classes.iconButton} aria-label="directions">
+                        <IconButton onClick={this.props.locateMe} color="primary" className={classes.iconButton} aria-label="directions">
                             <CenterFocusStrongIcon />
                         </IconButton>
                     </Tooltip>
