@@ -96,11 +96,6 @@ class GoogleMap extends React.Component<any> {
         const badges = document.createElement("div");
         ReactDOM.render(<BadgesComponent />, badges);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(badges);
-
-        // set ad area
-        const ad = document.createElement("div");
-        ReactDOM.render(<AdComponent />, ad);
-        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(ad);
     };
 
     private loadData = (map: any, maps: any) => {
