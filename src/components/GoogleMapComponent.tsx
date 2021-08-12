@@ -160,7 +160,7 @@ class GoogleMap extends React.Component<any> {
             <div className={classes.map}>
                 <GoogleMapReact
                     bootstrapURLKeys={{
-                        key: "",
+                        key: "YOUR_GOOGLE_APP_KEY",
                         libraries: ["places"]
                     }}
                     defaultCenter={TAIPEI_CENTER}

@@ -25,8 +25,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "apply-google-key": "./apply-google-key.sh",
+    "start": "yarn run apply-google-key; react-scripts start",
+    "build": "yarn run apply-google-key; react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "yarn prettier --write ./src"
