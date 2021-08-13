@@ -12,6 +12,7 @@ Server.get("/fetchMeetings", async (req, res) => {
     try {
         const response = await nodeFetch(MEETING_JSON_URL);
         const text = await response.text();
+        console.log(`Fetch ${MEETING_JSON_URL} successfully.`);
         return res.send(text);
     } catch (error) {
         console.error(error);
