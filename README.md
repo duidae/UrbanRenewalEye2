@@ -16,7 +16,8 @@
 ## Installation & Running
   * $ git clone https://github.com/duidae/UrbanRenewalEye.git
   * $ yarn install
-  * $ yarn start
+  * (shell 1)$ yarn frontend
+  * (shell 2)$ yarn backend
 
 ## Reference
 
