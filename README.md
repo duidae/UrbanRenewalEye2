@@ -30,10 +30,6 @@
 
 * [核定案件：搜審查流程 -> 核定, 可得核定案案件編號](https://www.gis.udd.gov.taipei/ProjectSearch.aspx)
 
-* [自劃更新單元](https://uro.gov.taipei/News.aspx?n=AF4D78CF694B745C&sms=CCC54E6046E281ED)
-
-* [聽證,公聽會(公民參與會議資訊)(json)](https://civil.gov.taipei/OpenData.aspx?SN=881665EB5B77192F)
-
 * [臺北市自動化3D近似建物模型open data](http://data.taipei/opendata/datalist/datasetMeta?oid=9b7d78d2-0d73-4b42-9b29-c1640efed0eb)
 
 * [建物3d+地圖](http://sheethub.github.io/tpe3d/3dtaipei4347-2.html)
