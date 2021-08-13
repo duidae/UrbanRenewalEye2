@@ -14,12 +14,8 @@ export class AppStore {
 
     private constructor() {
         makeObservable(this);
-        fetch("meetings_sample.json")
-            .then(response => response.json())
-            .then(data =>
-                runInAction(() => {
-                    this.meetings = data;
-                })
-            );
+
+        // TODO: investigate response.json() issue
+        fetch("/fetchMeetings");
     }
 }
