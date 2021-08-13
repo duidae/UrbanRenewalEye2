@@ -12,14 +12,22 @@ export class AppStore {
 
     @observable meetings: any;
 
+    private fetchMeetings = async () => {
+        try {
+            const response = await fetch("/fetchMeetings");
+            const text = await response.text();
+            return JSON.parse(text);
+        } catch(err) {
+            console.log(err);
+            return undefined;
+        }
+    };
+
     private constructor() {
         makeObservable(this);
-        fetch("meetings_sample.json")
-            .then(response => response.json())
-            .then(data =>
-                runInAction(() => {
-                    this.meetings = data;
-                })
-            );
+
+        this.fetchMeetings().then(response => runInAction(() => {
+            this.meetings = response;
+        }));
     }
 }

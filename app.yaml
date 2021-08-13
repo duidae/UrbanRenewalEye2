@@ -4,7 +4,11 @@ handlers:
 - url: /(.*\..+)$
   static_files: build/\1
   upload: build/(.*\..+)$
-# Catch all handler to index.html
-- url: /.*
+- url: /
   static_files: build/index.html
   upload: build/index.html
+# TODO: YAML's regex seems not support negative lookahead, what's the workaround for catch all handler?
+# Catch all handler to index.html
+#- url: /.*
+#  static_files: build/index.html
+#  upload: build/index.html
