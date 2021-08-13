@@ -32,7 +32,7 @@
     "start": "node src/server.js",
     "build": "yarn run apply-google-key; react-scripts build",
     "frontend": "yarn run apply-google-key; react-scripts start",
-    "backend": "node src/server.js",
+    "backend": "yarn start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "yarn prettier --write ./src"
