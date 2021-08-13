@@ -6,6 +6,7 @@ handlers:
   upload: build/(.*\..+)$
 - url: /fetchMeetings$
   static_files: build/fetchMeetings
+  upload: build/fetchMeetings
 # Catch all handler to index.html
 - url: /.*
   static_files: build/index.html
