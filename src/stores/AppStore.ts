@@ -17,7 +17,7 @@ export class AppStore {
             const response = await fetch("/fetchMeetings");
             const text = await response.text();
             return JSON.parse(text);
-        } catch(err) {
+        } catch (err) {
             console.log(err);
             return undefined;
         }
@@ -26,8 +26,10 @@ export class AppStore {
     private constructor() {
         makeObservable(this);
 
-        this.fetchMeetings().then(response => runInAction(() => {
-            this.meetings = response;
-        }));
+        this.fetchMeetings().then(response =>
+            runInAction(() => {
+                this.meetings = response;
+            })
+        );
     }
 }
