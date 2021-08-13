@@ -8,11 +8,11 @@ const MEETING_JSON_URL = "https://civil.gov.taipei/OpenData.aspx?SN=881665EB5B77
 
 Server.use(express.static(path.join(__dirname, "build")));
 
-Server.get("/fetchMeetings", async function (req, res) {
+Server.get("/fetchMeetings", async (req, res) => {
     try {
         const response = await nodeFetch(MEETING_JSON_URL);
         const text = await response.text();
-        console.log(text);
+        return res.send(text);
     } catch (error) {
         console.error(error);
     }
