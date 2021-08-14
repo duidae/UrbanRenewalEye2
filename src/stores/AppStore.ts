@@ -1,4 +1,4 @@
-import {observable, makeObservable, runInAction} from "mobx";
+import {action, observable, makeObservable, runInAction} from "mobx";
 
 export class AppStore {
     private static staticInstance: AppStore;
@@ -11,6 +11,8 @@ export class AppStore {
     }
 
     @observable meetings: any;
+    @observable isMeetingChecked: boolean;
+    @observable isNewsChecked: boolean;
 
     private fetchMeetings = async () => {
         try {
@@ -26,10 +28,22 @@ export class AppStore {
     private constructor() {
         makeObservable(this);
 
+        this.meetings = undefined;
+        this.isMeetingChecked = false;
+        this.isNewsChecked = false;
+
         this.fetchMeetings().then(response =>
             runInAction(() => {
                 this.meetings = response;
             })
         );
     }
+
+    @action setMeetingChecked = () => {
+        this.isMeetingChecked = true;
+    };
+
+    @action setNewsChecked = () => {
+        this.isNewsChecked = true;
+    };
 }

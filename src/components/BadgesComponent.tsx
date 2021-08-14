@@ -3,7 +3,7 @@ import {withStyles} from "@material-ui/core/styles";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
-import {MeetingsComponent} from ".";
+import {FBNewsComponent, MeetingsComponent} from ".";
 
 const FB_FAN_PAGE = "https://www.facebook.com/urbanrenewaleye";
 const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
@@ -30,7 +30,8 @@ function Badges(props) {
     return (
         <div className={classes.root}>
             <MeetingsComponent className={classes.badge} />
-            <Tooltip title="Facebook">
+            <FBNewsComponent className={classes.badge} />
+            <Tooltip title="都市更新天眼通Facebook粉專">
                 <Link className={classes.badge} href={FB_FAN_PAGE} color="inherit" target="_blank">
                     <FacebookIcon fontSize="large" />
                 </Link>

@@ -80,6 +80,7 @@ class Meetings extends React.Component<any, any> {
     @action private handleMeetingPopoverOpen = event => {
         this.meetingPopoverAnchor = event.currentTarget;
         this.isMeetingPopoverOpen = true;
+        AppStore.Instance.setMeetingChecked();
     };
 
     @action private handleMeetingPopoverClose = () => {
@@ -128,10 +129,10 @@ class Meetings extends React.Component<any, any> {
                         }}
                     </List>
                 </Popover>
-                <Tooltip title="台北市政府都市更新會議列表">
+                <Tooltip title="臺北市政府都市更新會議列表">
                     <span>
                         <IconButton aria-label="聽證會" color="inherit" disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
-                            <Badge badgeContent={appStore.meetings?.length} color="secondary">
+                            <Badge invisible={AppStore.Instance.isMeetingChecked} badgeContent={appStore.meetings?.length} color="secondary">
                                 <NotificationsActiveIcon fontSize="large" />
                             </Badge>
                         </IconButton>
