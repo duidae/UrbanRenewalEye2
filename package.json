@@ -32,7 +32,7 @@
     "start": "node src/server.js",
     "build": "yarn run apply-google-key; react-scripts build",
     "frontend": "yarn run apply-google-key; react-scripts start",
-    "backend": "yarn start",
+    "backend": "nodemon src/server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "yarn prettier --write ./src"
@@ -59,6 +59,7 @@
     "@types/google-map-react": "^2.1.2",
     "@types/google.maps": "^3.45.6",
     "@types/react-window": "^1.8.5",
+    "nodemon": "^2.0.12",
     "prettier": "^2.3.2"
   },
   "proxy": "http://localhost:8080"
