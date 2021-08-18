@@ -65,6 +65,7 @@ class FBNews extends React.Component<any, any> {
                             src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Furbanrenewaleye%2Fposts%2F1196450027544269&show_text=true&width=500"
                             width="500"
                             height="281"
+                            title="News"
                             className={classes.news}
                         ></iframe>
                     </Paper>

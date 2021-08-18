@@ -3,7 +3,6 @@ import {observer} from "mobx-react";
 import {action, observable, makeObservable} from "mobx";
 import {Paper} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import CloseIcon from "@material-ui/icons/Close";
 
 const styles = theme => ({
     root: {

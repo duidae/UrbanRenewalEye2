@@ -4,10 +4,10 @@ import {observer} from "mobx-react";
 import GoogleMapReact from "google-map-react";
 import {withStyles} from "@material-ui/core/styles";
 
-import {AdComponent, BadgesComponent, MapControlComponent} from ".";
+import {BadgesComponent, MapControlComponent} from ".";
+import {TAIPEI_CENTER} from "models";
 
-const TAIPEI_CENTER: GoogleMapReact.Coords = {lat: 25.038357847174, lng: 121.54770626982};
-const RENEWAL_GEOJSON = "self_determined_units/renewalUnits_01.json";
+const RENEWAL_GEOJSON = "geojson/self_determined_units/renewalUnits_09.json";
 
 const styles = theme => ({
     map: {
