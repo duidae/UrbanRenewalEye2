@@ -1,4 +1,12 @@
-import {action, observable, makeObservable, runInAction} from "mobx";
+import {action, computed, observable, makeObservable, runInAction} from "mobx";
+
+import {TaipeiDistrict} from "models";
+
+export enum DistrictSelectionType {
+    None,
+    Indeterminate,
+    All
+}
 
 export class AppStore {
     private static staticInstance: AppStore;
@@ -13,6 +21,7 @@ export class AppStore {
     @observable meetings: any;
     @observable isMeetingChecked: boolean;
     @observable isNewsChecked: boolean;
+    @observable selectedDistricts: Map<TaipeiDistrict, boolean>;
 
     private fetchMeetings = async () => {
         try {
@@ -32,6 +41,9 @@ export class AppStore {
         this.isMeetingChecked = false;
         this.isNewsChecked = false;
 
+        this.selectedDistricts = new Map<TaipeiDistrict, boolean>([]);
+        Object.values(TaipeiDistrict).forEach(district => this.selectedDistricts.set(district, false));
+
         this.fetchMeetings().then(response =>
             runInAction(() => {
                 this.meetings = response;
@@ -46,4 +58,13 @@ export class AppStore {
     @action setNewsChecked = () => {
         this.isNewsChecked = true;
     };
+
+    @action selectDistrict = (district: TaipeiDistrict) => {
+        this.selectedDistricts.set(district, !this.selectedDistricts.get(district));
+    };
+
+    @computed get districtSelectionType(): DistrictSelectionType {
+        // TODO: fill in selection type logic
+        return DistrictSelectionType.None;
+    }
 }
