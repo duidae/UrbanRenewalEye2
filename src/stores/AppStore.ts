@@ -1,6 +1,6 @@
 import {action, computed, observable, makeObservable, runInAction} from "mobx";
 
-import {TaipeiDistrict} from "models";
+import {TaipeiDistrict, TAIPEI_DISTRICT_NUM} from "models";
 
 export enum DistrictSelectionType {
     None,
@@ -64,7 +64,12 @@ export class AppStore {
     };
 
     @computed get districtSelectionType(): DistrictSelectionType {
-        // TODO: fill in selection type logic
-        return DistrictSelectionType.None;
+        const numTrue = Array.from(this.selectedDistricts?.values())?.filter(selection => selection === true)?.length;
+        if (numTrue === TAIPEI_DISTRICT_NUM) {
+            return DistrictSelectionType.All;
+        } else if (numTrue === 0) {
+            return DistrictSelectionType.None;
+        }
+        return DistrictSelectionType.Indeterminate;
     }
 }

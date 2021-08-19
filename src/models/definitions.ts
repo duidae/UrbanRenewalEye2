@@ -1,5 +1,6 @@
 export const TAIPEI_CENTER = {lat: 25.038357847174, lng: 121.54770626982};
 
+export const TAIPEI_DISTRICT_NUM = 12;
 export enum TaipeiDistrict {
     Shilin = "士林區",
     Datong = "大同區",
