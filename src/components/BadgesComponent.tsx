@@ -4,9 +4,7 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
 import {FBNewsComponent, MeetingsComponent} from ".";
-
-const FB_FAN_PAGE = "https://www.facebook.com/urbanrenewaleye";
-const GITHUB_REPO = "https://github.com/duidae/UrbanRenewalEye";
+import {FB_FAN_PAGE, GITHUB_REPO} from "models";
 
 const styles = theme => ({
     root: {

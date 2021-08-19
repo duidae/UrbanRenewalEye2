@@ -6,7 +6,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
 
-const HOME = "https://urbanrenewaleye.df.r.appspot.com/";
+import {HOME} from "models";
 
 const styles = theme => ({
     root: {
