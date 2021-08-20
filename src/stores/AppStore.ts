@@ -58,27 +58,27 @@ export class AppStore {
     };
 
     @action selectAllDistricts = () => {
-        const isSelectingNone = this.districtSelectionNum === 0;
+        const isSelectingNone = this.selectedDistrictNames?.length === 0;
         this.selectedDistricts.forEach((selected, district) => {
             this.selectedDistricts.set(district, isSelectingNone ? true : false);
         });
     };
 
-    @computed private get districtSelectionNum(): number {
-        let selectionNum = 0;
-        this.selectedDistricts?.forEach(isSelected => {
+    @computed get selectedDistrictNames(): TaipeiDistrict[] {
+        let selectedDistricts: TaipeiDistrict[] = [];
+        this.selectedDistricts?.forEach((isSelected, district) => {
             if (isSelected) {
-                selectionNum++;
+                selectedDistricts.push(district);
             }
         });
-        return selectionNum;
-    };
+        return selectedDistricts;
+    }
 
     @computed get isSelectingAllDistricts(): boolean {
-        return this.districtSelectionNum === TAIPEI_DISTRICTS_NUM;
+        return this.selectedDistrictNames?.length === TAIPEI_DISTRICTS_NUM;
     }
 
     @computed get isSelectingIndeterminateDistricts(): boolean {
-        return this.districtSelectionNum > 0 && this.districtSelectionNum < TAIPEI_DISTRICTS_NUM;
+        return this.selectedDistrictNames?.length > 0 && this.selectedDistrictNames?.length < TAIPEI_DISTRICTS_NUM;
     }
 }

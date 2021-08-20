@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {observer} from "mobx-react";
+import {autorun} from "mobx";
 import GoogleMapReact from "google-map-react";
 import {withStyles} from "@material-ui/core/styles";
 
 import {BadgesComponent, MapControlComponent} from ".";
+import {AppStore} from "stores";
 import {TAIPEI_CENTER} from "models";
-
-const RENEWAL_GEOJSON = "geojson/self_determined_units/renewalUnits_09.json";
 
 const styles = theme => ({
     map: {
@@ -20,9 +20,18 @@ class GoogleMap extends React.Component<any> {
     private map;
     private addressInput;
 
+    constructor(props) {
+        super(props);
+
+        autorun(() => {
+            // TODO: handle filename chinese issue
+            const districtGeoJsons = AppStore.Instance.selectedDistrictNames?.map((districtName, index) => {return `geojson/self_determined_units/renewalUnits_0${index+1}.json`;});
+            this.loadData(this.map, districtGeoJsons);
+        });
+    }
+
     private loadMap = (map: any, maps: any) => {
         this.initMap(map, maps);
-        this.loadData(map, maps);
     };
 
     private initMap = (map: any, maps: any) => {
@@ -98,7 +107,12 @@ class GoogleMap extends React.Component<any> {
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(badges);
     };
 
-    private loadData = (map: any, maps: any) => {
+    // TODO: clean when reload?
+    private loadData = (map: any, districtGeoJsons: string[]) => {
+        if (!map || districtGeoJsons?.length <= 0) {
+            return;
+        }
+
         map.data.setStyle((feature: any) => {
             const color = feature.getProperty("status") === "有效" ? "green" : "gray";
             return {
@@ -108,7 +122,7 @@ class GoogleMap extends React.Component<any> {
             };
         });
 
-        map.data.loadGeoJson(RENEWAL_GEOJSON);
+        districtGeoJsons.forEach(districtGeoJson => map.data.loadGeoJson(districtGeoJson));
 
         // Click event
         map.data.addListener("click", (event: any) => {
