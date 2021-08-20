@@ -1,12 +1,13 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {Divider, Link, IconButton, Paper, Tooltip, Typography} from "@material-ui/core";
+import {Checkbox, Divider, FormControlLabel, Link, IconButton, Paper, Tooltip, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
 
-import {HOME} from "models";
+import {AppStore} from "stores";
+import {HOME, TAIPEI_DISTRICTS} from "models";
 
 const styles = theme => ({
     root: {
@@ -67,6 +68,30 @@ class MapControl extends React.Component<any, any> {
     public render() {
         const classes = this.props.classes;
 
+        const selectAllCheckbox = (
+            <Checkbox
+                checked={AppStore.Instance.isSelectingAllDistricts}
+                indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts}
+                onChange={() => AppStore.Instance.selectAllDistricts()}
+            />
+        );
+
+        const districtCheckboxes = TAIPEI_DISTRICTS.map(district => {
+            return (
+                <FormControlLabel
+                    key={district}
+                    control={
+                        <Checkbox
+                            checked={AppStore.Instance.selectedDistricts.get(district)}
+                            onChange={() => AppStore.Instance.selectDistrict(district)}
+                            name={district}
+                        />
+                    }
+                    label={district}
+                />
+            );
+        });
+
         return (
             <div className={classes.root}>
                 <Tooltip title="首頁">
@@ -94,6 +119,8 @@ class MapControl extends React.Component<any, any> {
                         </IconButton>
                     </Tooltip>
                 </Paper>
+                {selectAllCheckbox}
+                {districtCheckboxes}
             </div>
         );
     }
