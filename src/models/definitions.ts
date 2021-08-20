@@ -1,5 +1,3 @@
-export const TAIPEI_CENTER = {lat: 25.038357847174, lng: 121.54770626982};
-
 export enum TaipeiDistrict {
     Shilin = "士林區",
     Datong = "大同區",
@@ -14,10 +12,11 @@ export enum TaipeiDistrict {
     Nangang = "南港區",
     Wanhua = "萬華區"
 }
-
 export const TAIPEI_DISTRICTS = Object.values(TaipeiDistrict);
 export const TAIPEI_DISTRICTS_NUM = TAIPEI_DISTRICTS.length;
 
+// GPS related
+export const TAIPEI_CENTER = {lat: 25.038357847174, lng: 121.54770626982};
 // TODO: find centers of 12 admin districts
 export const TAIPEI_DISTRICT_CENTER = new Map<TaipeiDistrict, any>([
     [TaipeiDistrict.Shilin, {lat: 25.038357847174, lng: 121.54770626982}],
