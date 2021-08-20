@@ -71,30 +71,12 @@ class MapControl extends React.Component<any, any> {
         const selectAllCheckbox = (
             <FormControlLabel
                 label={"全選"}
-                control={
-                    <Checkbox
-                        checked={AppStore.Instance.isSelectingAllDistricts}
-                        indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts}
-                        onChange={() => AppStore.Instance.selectAllDistricts()}
-                    />
-                }
+                control={<Checkbox checked={AppStore.Instance.isSelectingAllDistricts} indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts} onChange={() => AppStore.Instance.selectAllDistricts()} />}
             />
         );
 
         const districtCheckboxes = TAIPEI_DISTRICTS.map(district => {
-            return (
-                <FormControlLabel
-                    key={district}
-                    label={district}
-                    control={
-                        <Checkbox
-                            checked={AppStore.Instance.selectedDistricts.get(district)}
-                            onChange={() => AppStore.Instance.selectDistrict(district)}
-                            name={district}
-                        />
-                    }
-                />
-            );
+            return <FormControlLabel key={district} label={district} control={<Checkbox checked={AppStore.Instance.selectedDistricts.get(district)} onChange={() => AppStore.Instance.selectDistrict(district)} name={district} />} />;
         });
 
         return (
