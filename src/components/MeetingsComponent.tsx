@@ -20,7 +20,7 @@ enum MeetingType {
     PUBLIC_HEARING = "公聽會",
     REVIEW = "審議會",
     PUBLIC_EXHIBITION = "公開展覽",
-    OTHERS = "其他"
+    OTHERS = "其他會議"
 }
 
 const MEETING_TYPE_ACRONYM = new Map<MeetingType, string>([
@@ -30,6 +30,7 @@ const MEETING_TYPE_ACRONYM = new Map<MeetingType, string>([
     [MeetingType.PUBLIC_EXHIBITION, "展"],
     [MeetingType.OTHERS, "其"]
 ]);
+const MEETING_TYPE_DEFAULT_ACRONYM = MEETING_TYPE_ACRONYM.get(MeetingType.OTHERS);
 /*
 const MEETING_TYPE_COLOR_MAP = new Map<MeetingType, string>([
     [MeetingType.HEARING, "red"],
@@ -117,7 +118,7 @@ class Meetings extends React.Component<any, any> {
                                         <CardHeader
                                             avatar={
                                                 <Avatar variant="square" aria-label={MeetingKey.TYPE} className={classes[MEETING_TYPE_COLOR_MAP.get(meetingType) ?? MEETING_TYPE_DEFAULT_COLOR]}>
-                                                    {MEETING_TYPE_ACRONYM.get(meetingType as MeetingType)}
+                                                    {MEETING_TYPE_ACRONYM.get(meetingType as MeetingType) ?? MEETING_TYPE_DEFAULT_ACRONYM}
                                                 </Avatar>
                                             }
                                             title={<Typography>{`[${index + 1}/${appStore.meetings?.length}]${meeting?.title}`}</Typography>}
