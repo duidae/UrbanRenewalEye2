@@ -24,8 +24,7 @@ class GoogleMap extends React.Component<any> {
         super(props);
 
         autorun(() => {
-            // TODO: handle filename chinese issue
-            const districtGeoJsons = AppStore.Instance.selectedDistrictNames?.map((districtName, index) => {return `geojson/self_determined_units/renewalUnits_0${index+1}.json`;});
+            const districtGeoJsons = AppStore.Instance.selectedDistrictNames?.map(districtName => {return `geojson/self_determined_units/renewalUnits_${districtName}.json`;});
             this.loadData(this.map, districtGeoJsons);
         });
     }

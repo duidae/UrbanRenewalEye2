@@ -1,6 +1,6 @@
 import {action, computed, observable, ObservableMap, makeObservable, runInAction} from "mobx";
 
-import {TaipeiDistrict, TAIPEI_DISTRICTS, TAIPEI_DISTRICTS_NUM} from "models";
+import {DISTRICT_NAME_EN_MAP, TaipeiDistrict, TAIPEI_DISTRICTS, TAIPEI_DISTRICTS_NUM} from "models";
 
 export class AppStore {
     private static staticInstance: AppStore;
@@ -64,11 +64,11 @@ export class AppStore {
         });
     };
 
-    @computed get selectedDistrictNames(): TaipeiDistrict[] {
-        let selectedDistricts: TaipeiDistrict[] = [];
+    @computed get selectedDistrictNames(): (string | undefined)[] {
+        let selectedDistricts: (string | undefined)[] = [];
         this.selectedDistricts?.forEach((isSelected, district) => {
-            if (isSelected) {
-                selectedDistricts.push(district);
+            if (isSelected && DISTRICT_NAME_EN_MAP.has(district)) {
+                selectedDistricts.push(DISTRICT_NAME_EN_MAP.get(district));
             }
         });
         return selectedDistricts;

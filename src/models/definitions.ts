@@ -15,6 +15,23 @@ export enum TaipeiDistrict {
 export const TAIPEI_DISTRICTS = Object.values(TaipeiDistrict);
 export const TAIPEI_DISTRICTS_NUM = TAIPEI_DISTRICTS.length;
 
+// TODO: temporary solution for encoding problem of map.data.loadGeoJson(),
+// is it possible to load filename with chinese character directly?
+export const DISTRICT_NAME_EN_MAP = new Map<TaipeiDistrict, string>([
+    [TaipeiDistrict.Shilin, "Shilin"],
+    [TaipeiDistrict.Datong, "Datong"],
+    [TaipeiDistrict.Daan, "Daan"],
+    [TaipeiDistrict.Zhongshan, "Zhongshan"],
+    [TaipeiDistrict.Zhongzheng, "Zhongzheng"],
+    [TaipeiDistrict.Neihu, "Neihu"],
+    [TaipeiDistrict.Wenshan, "Wenshan"],
+    [TaipeiDistrict.Beitou, "Beitou"],
+    [TaipeiDistrict.Songshan, "Songshan"],
+    [TaipeiDistrict.Xinyi, "Xinyi"],
+    [TaipeiDistrict.Nangang, "Nangang"],
+    [TaipeiDistrict.Wanhua, "Wanhua"]
+]);
+
 // GPS related
 export const TAIPEI_CENTER = {lat: 25.038357847174, lng: 121.54770626982};
 // TODO: find centers of 12 admin districts
