@@ -69,10 +69,15 @@ class MapControl extends React.Component<any, any> {
         const classes = this.props.classes;
 
         const selectAllCheckbox = (
-            <Checkbox
-                checked={AppStore.Instance.isSelectingAllDistricts}
-                indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts}
-                onChange={() => AppStore.Instance.selectAllDistricts()}
+            <FormControlLabel
+                label={"全選"}
+                control={
+                    <Checkbox
+                        checked={AppStore.Instance.isSelectingAllDistricts}
+                        indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts}
+                        onChange={() => AppStore.Instance.selectAllDistricts()}
+                    />
+                }
             />
         );
 
@@ -80,6 +85,7 @@ class MapControl extends React.Component<any, any> {
             return (
                 <FormControlLabel
                     key={district}
+                    label={district}
                     control={
                         <Checkbox
                             checked={AppStore.Instance.selectedDistricts.get(district)}
@@ -87,7 +93,6 @@ class MapControl extends React.Component<any, any> {
                             name={district}
                         />
                     }
-                    label={district}
                 />
             );
         });
