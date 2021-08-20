@@ -24,8 +24,7 @@ class GoogleMap extends React.Component<any> {
         super(props);
 
         autorun(() => {
-            const districtGeoJsons = AppStore.Instance.selectedDistrictNames?.map(districtName => {return `geojson/self_determined_units/renewalUnits_${districtName}.json`;});
-            this.loadData(this.map, districtGeoJsons);
+            this.loadData(this.map, AppStore.Instance.selectedGeojsons);
         });
     }
 

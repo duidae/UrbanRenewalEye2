@@ -64,14 +64,18 @@ export class AppStore {
         });
     };
 
-    @computed get selectedDistrictNames(): (string | undefined)[] {
-        let selectedDistricts: (string | undefined)[] = [];
+    @computed private get selectedDistrictNames(): TaipeiDistrict[] {
+        let selectedDistricts: TaipeiDistrict[] = [];
         this.selectedDistricts?.forEach((isSelected, district) => {
-            if (isSelected && DISTRICT_NAME_EN_MAP.has(district)) {
-                selectedDistricts.push(DISTRICT_NAME_EN_MAP.get(district));
+            if (isSelected) {
+                selectedDistricts.push(district);
             }
         });
         return selectedDistricts;
+    }
+
+    @computed get selectedGeojsons(): string[] {
+        return this.selectedDistrictNames?.map(districtName => {return `geojson/self_determined_units/renewalUnits_${DISTRICT_NAME_EN_MAP.get(districtName)}.json`;});
     }
 
     @computed get isSelectingAllDistricts(): boolean {
