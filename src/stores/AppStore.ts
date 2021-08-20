@@ -5,7 +5,7 @@ import {TaipeiDistrict, TAIPEI_DISTRICTS, TAIPEI_DISTRICTS_NUM} from "models";
 export class AppStore {
     private static staticInstance: AppStore;
 
-    static get Instance() {
+    public static get Instance() {
         if (!AppStore.staticInstance) {
             AppStore.staticInstance = new AppStore();
         }
