@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {observer} from "mobx-react";
-import {autorun} from "mobx";
+import {action, autorun, observable} from "mobx";
 import GoogleMapReact from "google-map-react";
+import {Backdrop, CircularProgress} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 
 import {BadgesComponent, MapControlComponent} from ".";
@@ -12,7 +13,11 @@ import {TAIPEI_CENTER} from "models";
 const styles = theme => ({
     map: {
         height: "100vh"
-    }
+    },
+    backdrop: {
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
+    },
 });
 
 @observer
@@ -20,12 +25,19 @@ class GoogleMap extends React.Component<any> {
     private map;
     private addressInput;
 
+    @observable private isBackdropOpen: boolean;
+
     constructor(props) {
         super(props);
 
+        this.isBackdropOpen = true;
+
         autorun(() => {
+            // this.isBackdropOpen = true;
             this.loadData(this.map, AppStore.Instance.selectedGeojsons);
         });
+
+        autorun(() => console.log(`${this.isBackdropOpen}`));
     }
 
     private loadMap = (map: any, maps: any) => {
@@ -120,7 +132,7 @@ class GoogleMap extends React.Component<any> {
             };
         });
 
-        districtGeoJsons.forEach(districtGeoJson => map.data.loadGeoJson(districtGeoJson));
+        districtGeoJsons.forEach(districtGeoJson => map.data.loadGeoJson(districtGeoJson, {}, this.finishGeojsonLoading));
 
         // Click event
         map.data.addListener("click", (event: any) => {
@@ -139,6 +151,12 @@ class GoogleMap extends React.Component<any> {
         map.data.addListener("mouseout", (event: any) => {
             mouseoverInfoWindow?.close();
         });
+    };
+
+    @action private finishGeojsonLoading = () => {
+        this.isBackdropOpen = false;
+        console.log(`${this.isBackdropOpen}`);
+        console.log("done");
     };
 
     private locateMe = () => {
@@ -181,6 +199,9 @@ class GoogleMap extends React.Component<any> {
                     yesIWantToUseGoogleMapApiInternals={true}
                     onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
                 />
+                <Backdrop className={classes.backdrop} open={this.isBackdropOpen} onClick={this.finishGeojsonLoading}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
             </div>
         );
     }
