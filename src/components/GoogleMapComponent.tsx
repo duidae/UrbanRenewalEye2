@@ -15,22 +15,23 @@ const styles = theme => ({
     }
 });
 
+type GeoJsonPath = string;
+
 @observer
 class GoogleMap extends React.Component<any> {
-    private map;
+    private map: any;
     private addressInput;
+    private dataMap: Map<GeoJsonPath, google.maps.Data>;
 
     constructor(props) {
         super(props);
 
+        this.dataMap = new Map<GeoJsonPath, google.maps.Data>([]);
+
         autorun(() => {
-            this.loadData(this.map, AppStore.Instance.selectedGeojsons);
+            this.handleSelectedGeojsons(AppStore.Instance.selectedGeojsonPaths);
         });
     }
-
-    private loadMap = (map: any, maps: any) => {
-        this.initMap(map, maps);
-    };
 
     private initMap = (map: any, maps: any) => {
         this.map = map;
@@ -105,13 +106,20 @@ class GoogleMap extends React.Component<any> {
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(badges);
     };
 
-    // TODO: clean when reload?
-    private loadData = (map: any, districtGeoJsons: string[]) => {
-        if (!map || districtGeoJsons?.length <= 0) {
-            return;
-        }
+    private handleSelectedGeojsons = (selectedGeojsonPaths: string[]) => {
+        selectedGeojsonPaths?.forEach(selectedGeojsonPath => {
+            if (!this.dataMap.has(selectedGeojsonPath)) {
+                this.dataMap.set(selectedGeojsonPath, this.createData(selectedGeojsonPath));
+            }
+        });
+        this.showDataOnMap(selectedGeojsonPaths);
+    };
 
-        map.data.setStyle((feature: any) => {
+    private createData = (geojsonPath: string): google.maps.Data => {
+        let data = new google.maps.Data();
+        data.loadGeoJson(geojsonPath);
+
+        data.setStyle((feature: any) => {
             const color = feature.getProperty("status") === "有效" ? "green" : "gray";
             return {
                 fillColor: color,
@@ -119,25 +127,34 @@ class GoogleMap extends React.Component<any> {
                 clickable: true
             };
         });
-
-        districtGeoJsons.forEach(districtGeoJson => map.data.loadGeoJson(districtGeoJson));
-
+        /* TODO: enable event handlers
         // Click event
-        map.data.addListener("click", (event: any) => {
+        data.addListener("click", (event: any) => {
             const content = `${event.feature.getProperty("id")}<br>${event.feature.getProperty("type")}<br>${event.feature.getProperty("status")}`;
             const clickInfoWindow = new google.maps.InfoWindow({position: event.latLng, content: content});
-            clickInfoWindow.open({map, shouldFocus: false});
-        });
-
+            clickInfoWindow.open({this.map, shouldFocus: false});
+        })
         // Hover event
         let mouseoverInfoWindow: any;
-        map.data.addListener("mouseover", (event: any) => {
+        data.addListener("mouseover", (event: any) => {
             const content = `${event.feature.getProperty("id")}<br>${event.feature.getProperty("type")}<br>${event.feature.getProperty("status")}`;
             mouseoverInfoWindow = new google.maps.InfoWindow({position: event.latLng, content: content});
             mouseoverInfoWindow.open({map, shouldFocus: false});
         });
-        map.data.addListener("mouseout", (event: any) => {
+        data.addListener("mouseout", (event: any) => {
             mouseoverInfoWindow?.close();
+        });
+        */
+        return data;
+    };
+
+    private showDataOnMap = (selectedGeojsons: string[]) => {
+        if (!this.map) {
+            return;
+        }
+
+        this.dataMap.forEach((data, geojson) => {
+            data.setMap(selectedGeojsons?.includes(geojson) ? this.map : null);
         });
     };
 
@@ -179,7 +196,7 @@ class GoogleMap extends React.Component<any> {
                     defaultZoom={14}
                     options={{streetViewControl: true, mapTypeControl: true}}
                     yesIWantToUseGoogleMapApiInternals={true}
-                    onGoogleApiLoaded={({map, maps}) => this.loadMap(map, maps)}
+                    onGoogleApiLoaded={({map, maps}) => this.initMap(map, maps)}
                 />
             </div>
         );

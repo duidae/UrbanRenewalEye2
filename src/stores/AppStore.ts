@@ -74,7 +74,7 @@ export class AppStore {
         return selectedDistricts;
     }
 
-    @computed get selectedGeojsons(): string[] {
+    @computed get selectedGeojsonPaths(): string[] {
         return this.selectedDistrictNames?.map(districtName => {
             return `geojson/self_determined_units/renewalUnits_${DISTRICT_NAME_EN_MAP.get(districtName)}.json`;
         });
