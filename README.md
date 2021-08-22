@@ -35,4 +35,4 @@
 
 * [空屋地圖](https://buzzorange.com/2016/09/13/ko-p-talking-about-living-justic/) 使用量低於 60 度以下的用戶才會被標記為空屋
 
-* [](https://twur.cpami.gov.tw/zh/urban/area/map/tgos)
+* [全國都市更新單元](https://twur.cpami.gov.tw/zh/urban/area/map/tgos)
