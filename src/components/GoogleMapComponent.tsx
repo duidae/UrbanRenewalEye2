@@ -22,7 +22,7 @@ type GoogleMapData = google.maps.Data | undefined;
 class GoogleMap extends React.Component<any> {
     private map: any;
     private addressInput;
-    private districtData: GoogleMapData;
+    private districtData: any;
     private dataMap: Map<GeoJsonPath, GoogleMapData>;
 
     constructor(props) {
@@ -39,12 +39,11 @@ class GoogleMap extends React.Component<any> {
     private initMap = (map: any, maps: any) => {
         this.map = map;
         this.districtData = new google.maps.Data();
+        this.districtData.setMap(this.map);
         this.districtData.loadGeoJson(TAIPEI_DISTRICTS_GEOJSON);
         this.districtData.setStyle((feature: any) => {
             return {
-                fillOpacity: 0,
-                strokeColor: "gray", // TODO: change color to the blue theme color
-                clickable: false
+                visible: false
             };
         });
         this.dataMap.set(TAIPEI_DISTRICTS_GEOJSON, this.districtData);
@@ -171,7 +170,17 @@ class GoogleMap extends React.Component<any> {
         });
 
         // TODO: show district geojson individually
-        this.districtData?.setMap(selectedGeojsons?.length > 0 ? this.map : null);
+        if (selectedGeojsons?.length > 0) {
+            this.districtData?.revertStyle(this.districtData?.getFeatureById("Daan"));
+            console.log(this.districtData?.getFeatureById("Daan"));
+            this.districtData?.overrideStyle(this.districtData?.getFeatureById("Daan"), {
+                visible: true,
+                fillOpacity: 0,
+                strokeColor: "gray", // TODO: change color to the blue theme color
+                clickable: false
+            });
+        }
+        //this.districtData?.setMap(selectedGeojsons?.length > 0 ? this.map : null);
     };
 
     private locateMe = () => {
