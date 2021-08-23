@@ -14,6 +14,7 @@ export enum TaipeiDistrict {
 }
 export const TAIPEI_DISTRICTS = Object.values(TaipeiDistrict);
 export const TAIPEI_DISTRICTS_NUM = TAIPEI_DISTRICTS.length;
+export const TAIPEI_DISTRICTS_GEOJSON = "geojson/Taipei_districts.geojson";
 
 // TODO: temporary solution for encoding problem of map.data.loadGeoJson(),
 // is it possible to load filename with chinese character directly?

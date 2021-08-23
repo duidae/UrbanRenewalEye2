@@ -7,7 +7,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 import {BadgesComponent, MapControlComponent} from ".";
 import {AppStore} from "stores";
-import {TAIPEI_CENTER} from "models";
+import {TAIPEI_CENTER, TAIPEI_DISTRICTS_GEOJSON} from "models";
 
 const styles = theme => ({
     map: {
@@ -16,17 +16,20 @@ const styles = theme => ({
 });
 
 type GeoJsonPath = string;
+type GoogleMapData = google.maps.Data | undefined;
 
 @observer
 class GoogleMap extends React.Component<any> {
     private map: any;
     private addressInput;
-    private dataMap: Map<GeoJsonPath, google.maps.Data>;
+    private districtData: GoogleMapData;
+    private dataMap: Map<GeoJsonPath, GoogleMapData>;
 
     constructor(props) {
         super(props);
 
-        this.dataMap = new Map<GeoJsonPath, google.maps.Data>([]);
+        this.districtData = undefined;
+        this.dataMap = new Map<GeoJsonPath, GoogleMapData>([]);
 
         autorun(() => {
             this.handleSelectedGeojsons(AppStore.Instance.selectedGeojsonPaths);
@@ -35,6 +38,9 @@ class GoogleMap extends React.Component<any> {
 
     private initMap = (map: any, maps: any) => {
         this.map = map;
+        this.districtData = new google.maps.Data();
+        this.districtData.loadGeoJson(TAIPEI_DISTRICTS_GEOJSON);
+        this.dataMap.set(TAIPEI_DISTRICTS_GEOJSON, this.districtData);
 
         // setup map control widget
         const mapControl = document.createElement("div");
@@ -154,8 +160,11 @@ class GoogleMap extends React.Component<any> {
         }
 
         this.dataMap.forEach((data, geojson) => {
-            data.setMap(selectedGeojsons?.includes(geojson) ? this.map : null);
+            data?.setMap(selectedGeojsons?.includes(geojson) ? this.map : null);
         });
+
+        // TODO: show district geojson individually
+        this.districtData?.setMap(selectedGeojsons?.length > 0 ? this.map : null);
     };
 
     private locateMe = () => {
