@@ -40,6 +40,13 @@ class GoogleMap extends React.Component<any> {
         this.map = map;
         this.districtData = new google.maps.Data();
         this.districtData.loadGeoJson(TAIPEI_DISTRICTS_GEOJSON);
+        this.districtData.setStyle((feature: any) => {
+            return {
+                fillOpacity: 0,
+                strokeColor: "gray", // TODO: change color to the blue theme color
+                clickable: false
+            };
+        });
         this.dataMap.set(TAIPEI_DISTRICTS_GEOJSON, this.districtData);
 
         // setup map control widget
