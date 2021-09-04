@@ -60,7 +60,8 @@
     "@types/google.maps": "^3.45.6",
     "@types/react-window": "^1.8.5",
     "nodemon": "^2.0.12",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "stats-js": "^1.0.1"
   },
   "proxy": "http://localhost:8080"
 }
