@@ -63,6 +63,10 @@ const styles = theme => ({
 
 @observer
 class MapControl extends React.Component<any, any> {
+    private getInputRef = ref => {
+        this.props.setInputRef(ref);
+    };
+
     private handleMenuClick = () => {};
 
     public render() {
@@ -95,7 +99,7 @@ class MapControl extends React.Component<any, any> {
                             <MenuIcon />
                         </IconButton>
                     </Tooltip>
-                    <input className={classes.input} ref={ref => this.props.setInputRef(ref)} placeholder="搜尋地址" />
+                    <input className={classes.input} ref={this.getInputRef} placeholder="搜尋地址" />
                     <IconButton className={classes.iconButton} aria-label="search">
                         <SearchIcon />
                     </IconButton>

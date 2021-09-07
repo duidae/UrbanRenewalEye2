@@ -80,6 +80,10 @@ export class AppStore {
         });
     }
 
+    @computed get selectedAreaCenterAndZoom(): {center: {lat: number; lng: number}; zoom: number} | undefined {
+        return undefined;
+    }
+
     @computed get isSelectingAllDistricts(): boolean {
         return this.selectedDistrictNames?.length === TAIPEI_DISTRICTS_NUM;
     }

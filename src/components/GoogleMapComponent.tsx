@@ -7,7 +7,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 import {BadgesComponent, MapControlComponent} from ".";
 import {AppStore} from "stores";
-import {TAIPEI_CENTER, TAIPEI_DISTRICTS_GEOJSON} from "models";
+import {DEFAULT_ZOOM, TAIPEI_CENTER, TAIPEI_DISTRICTS_GEOJSON} from "models";
 
 const styles = theme => ({
     map: {
@@ -32,9 +32,17 @@ class GoogleMap extends React.Component<any> {
         this.dataMap = new Map<GeoJsonPath, GoogleMapData>([]);
 
         autorun(() => {
+            // this.moveCenterTo(AppStore.Instance.selectedAreaCenterAndZoom);
+        });
+
+        autorun(() => {
             this.handleSelectedGeojsons(AppStore.Instance.selectedGeojsonPaths);
         });
     }
+
+    private getInputRef = ref => {
+        this.addressInput = ref;
+    };
 
     private initMap = (map: any, maps: any) => {
         this.map = map;
@@ -54,9 +62,7 @@ class GoogleMap extends React.Component<any> {
         ReactDOM.render(
             <MapControlComponent
                 locateMe={this.locateMe}
-                setInputRef={ref => {
-                    this.addressInput = ref;
-                }}
+                setInputRef={this.getInputRef}
             />,
             mapControl
         );
@@ -198,6 +204,13 @@ class GoogleMap extends React.Component<any> {
         }
     };
 
+    private moveCenterTo = (centerAndZoom: {center: {lat: number; lng: number}; zoom: number}) => {
+        if (this.map && centerAndZoom?.center && centerAndZoom?.zoom) {
+            this.map.setZoom(centerAndZoom.zoom);
+            this.map.panTo(centerAndZoom.center);
+        }
+    };
+
     render() {
         const classes = this.props.classes;
 
@@ -209,7 +222,7 @@ class GoogleMap extends React.Component<any> {
                         libraries: ["places"]
                     }}
                     defaultCenter={TAIPEI_CENTER}
-                    defaultZoom={14}
+                    defaultZoom={DEFAULT_ZOOM}
                     options={{streetViewControl: true, mapTypeControl: true}}
                     yesIWantToUseGoogleMapApiInternals={true}
                     onGoogleApiLoaded={({map, maps}) => this.initMap(map, maps)}

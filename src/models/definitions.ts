@@ -33,6 +33,7 @@ export const DISTRICT_NAME_EN_MAP = new Map<TaipeiDistrict, string>([
     [TaipeiDistrict.Wanhua, "Wanhua"]
 ]);
 
+export const DEFAULT_ZOOM = 14;
 // GPS related
 export const TAIPEI_CENTER = {lat: 25.038357847174, lng: 121.54770626982};
 // TODO: find centers of 12 admin districts
