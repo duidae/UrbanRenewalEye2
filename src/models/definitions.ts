@@ -39,7 +39,7 @@ export const TAIPEI_CENTER = {lat: 25.038357847174, lng: 121.54770626982};
 export const TAIPEI_DISTRICT_CENTER = new Map<TaipeiDistrict, any>([
     [TaipeiDistrict.Shilin, {lat: 25.038357847174, lng: 121.54770626982}],
     [TaipeiDistrict.Datong, {lat: 25.038357847174, lng: 121.54770626982}],
-    [TaipeiDistrict.Daan, {lat: 25.038357847174, lng: 121.54770626982}],
+    [TaipeiDistrict.Daan, {lat: 25.026054, lng: 121.543439}],
     [TaipeiDistrict.Zhongshan, {lat: 25.038357847174, lng: 121.54770626982}],
     [TaipeiDistrict.Zhongzheng, {lat: 25.038357847174, lng: 121.54770626982}],
     [TaipeiDistrict.Neihu, {lat: 25.038357847174, lng: 121.54770626982}],
