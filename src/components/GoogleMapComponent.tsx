@@ -59,13 +59,7 @@ class GoogleMap extends React.Component<any> {
 
         // setup map control widget
         const mapControl = document.createElement("div");
-        ReactDOM.render(
-            <MapControlComponent
-                locateMe={this.locateMe}
-                setInputRef={this.getInputRef}
-            />,
-            mapControl
-        );
+        ReactDOM.render(<MapControlComponent locateMe={this.locateMe} setInputRef={this.getInputRef} />, mapControl);
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(mapControl);
         const searchBox = new google.maps.places.SearchBox(this.addressInput);
         map.addListener("bounds_changed", () => {
