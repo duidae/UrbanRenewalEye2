@@ -1,10 +1,11 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {Checkbox, Divider, FormControlLabel, Link, IconButton, Paper, Tooltip, Typography} from "@material-ui/core";
+import {Button, Checkbox, Divider, FormControlLabel, Link, IconButton, Paper, Popover, Tooltip, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import CenterFocusStrongIcon from "@material-ui/icons/CenterFocusStrong";
+import PopupState, {bindTrigger, bindPopover} from "material-ui-popup-state";
 
 import {AppStore} from "stores";
 import {HOME, TAIPEI_DISTRICTS} from "models";
@@ -72,17 +73,6 @@ class MapControl extends React.Component<any, any> {
     public render() {
         const classes = this.props.classes;
 
-        const selectAllCheckbox = (
-            <FormControlLabel
-                label={"全選"}
-                control={<Checkbox checked={AppStore.Instance.isSelectingAllDistricts} indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts} onChange={() => AppStore.Instance.selectAllDistricts()} />}
-            />
-        );
-
-        const districtCheckboxes = TAIPEI_DISTRICTS.map(district => {
-            return <FormControlLabel key={district} label={district} control={<Checkbox checked={AppStore.Instance.selectedDistricts.get(district)} onChange={() => AppStore.Instance.selectDistrict(district)} name={district} />} />;
-        });
-
         return (
             <div className={classes.root}>
                 <Tooltip title="首頁">
@@ -110,11 +100,52 @@ class MapControl extends React.Component<any, any> {
                         </IconButton>
                     </Tooltip>
                 </Paper>
-                {selectAllCheckbox}
-                {districtCheckboxes}
+                <DistrictMenu />
             </div>
         );
     }
 }
 
 export const MapControlComponent = withStyles(styles as {})(MapControl);
+
+@observer
+class DistrictMenu extends React.Component {
+    public render() {
+        return (
+            <PopupState variant="popover" popupId="demo-popup-popover">
+                {popupState => (
+                    <div>
+                        <Button variant="contained" {...bindTrigger(popupState)}>
+                            行政區
+                        </Button>
+                        <Popover
+                            {...bindPopover(popupState)}
+                            anchorOrigin={{
+                                vertical: "bottom",
+                                horizontal: "center"
+                            }}
+                            transformOrigin={{
+                                vertical: "top",
+                                horizontal: "center"
+                            }}
+                        >
+                            <FormControlLabel
+                                label={"全選"}
+                                control={<Checkbox checked={AppStore.Instance.isSelectingAllDistricts} indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts} onChange={() => AppStore.Instance.selectAllDistricts()} />}
+                            />
+                            {TAIPEI_DISTRICTS.map(district => {
+                                return (
+                                    <FormControlLabel
+                                        key={district}
+                                        label={district}
+                                        control={<Checkbox checked={AppStore.Instance.selectedDistricts.get(district)} onChange={() => AppStore.Instance.selectDistrict(district)} name={district} />}
+                                    />
+                                );
+                            })}
+                        </Popover>
+                    </div>
+                )}
+            </PopupState>
+        );
+    }
+}
