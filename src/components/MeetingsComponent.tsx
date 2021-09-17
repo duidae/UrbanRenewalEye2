@@ -68,24 +68,25 @@ const styles = theme => ({
 
 @observer
 class Meetings extends React.Component<any, any> {
+    private meetingIconRef;
     @observable isMeetingPopoverOpen: boolean;
-    private meetingPopoverAnchor;
 
     constructor(props) {
         super(props);
         makeObservable(this);
-        this.meetingPopoverAnchor = undefined;
         this.isMeetingPopoverOpen = false;
     }
 
-    @action private handleMeetingPopoverOpen = event => {
-        this.meetingPopoverAnchor = event.currentTarget;
+    private getMeetingIconRef = ref => {
+        this.meetingIconRef = ref;
+    };
+
+    @action private handleMeetingPopoverOpen = () => {
         this.isMeetingPopoverOpen = true;
         AppStore.Instance.setMeetingChecked();
     };
 
     @action private handleMeetingPopoverClose = () => {
-        this.meetingPopoverAnchor = null;
         this.isMeetingPopoverOpen = false;
     };
 
@@ -97,7 +98,7 @@ class Meetings extends React.Component<any, any> {
             <div className={this.props.className}>
                 <Popover
                     open={this.isMeetingPopoverOpen}
-                    anchorEl={this.meetingPopoverAnchor}
+                    anchorEl={this.meetingIconRef}
                     onClose={this.handleMeetingPopoverClose}
                     anchorOrigin={{
                         vertical: "bottom",
@@ -132,7 +133,7 @@ class Meetings extends React.Component<any, any> {
                 </Popover>
                 <Tooltip title="臺北市政府都市更新會議列表">
                     <span>
-                        <IconButton aria-label="聽證會" color="inherit" disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
+                        <IconButton aria-label="聽證會" color="inherit" ref={this.getMeetingIconRef} disabled={!appStore.meetings?.length} onClick={this.handleMeetingPopoverOpen}>
                             <Badge invisible={AppStore.Instance.isMeetingChecked} badgeContent={appStore.meetings?.length} color="secondary">
                                 <NotificationsActiveIcon fontSize="large" />
                             </Badge>
