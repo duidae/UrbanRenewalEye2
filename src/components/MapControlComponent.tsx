@@ -1,6 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
-import {Button, Checkbox, Divider, FormControlLabel, Link, IconButton, Paper, Popover, Tooltip, Typography} from "@material-ui/core";
+import {Button, Checkbox, Divider, FormControlLabel, FormGroup, Link, IconButton, Paper, Popover, Tooltip, Typography} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
@@ -129,19 +129,21 @@ class DistrictMenu extends React.Component {
                                 horizontal: "center"
                             }}
                         >
-                            <FormControlLabel
-                                label={"全選"}
-                                control={<Checkbox checked={AppStore.Instance.isSelectingAllDistricts} indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts} onChange={() => AppStore.Instance.selectAllDistricts()} />}
-                            />
-                            {TAIPEI_DISTRICTS.map(district => {
-                                return (
-                                    <FormControlLabel
-                                        key={district}
-                                        label={district}
-                                        control={<Checkbox checked={AppStore.Instance.selectedDistricts.get(district)} onChange={() => AppStore.Instance.selectDistrict(district)} name={district} />}
-                                    />
-                                );
-                            })}
+                            <FormGroup>
+                                <FormControlLabel
+                                    label={"全選"}
+                                    control={<Checkbox checked={AppStore.Instance.isSelectingAllDistricts} indeterminate={AppStore.Instance.isSelectingIndeterminateDistricts} onChange={() => AppStore.Instance.selectAllDistricts()} />}
+                                />
+                                {TAIPEI_DISTRICTS.map(district => {
+                                    return (
+                                        <FormControlLabel
+                                            key={district}
+                                            label={district}
+                                            control={<Checkbox checked={AppStore.Instance.selectedDistricts.get(district)} onChange={() => AppStore.Instance.selectDistrict(district)} name={district} />}
+                                        />
+                                    );
+                                })}
+                            </FormGroup>
                         </Popover>
                     </div>
                 )}
