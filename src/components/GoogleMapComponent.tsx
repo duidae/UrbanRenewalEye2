@@ -145,7 +145,7 @@ class GoogleMap extends React.Component<any> {
         data.addListener("click", (event: any) => {
             const content = `${event.feature.getProperty("id")}<br>${event.feature.getProperty("type")}<br>${event.feature.getProperty("status")}`;
             const clickInfoWindow = new google.maps.InfoWindow({position: event.latLng, content: content});
-            clickInfoWindow.open({this.map, shouldFocus: false});
+            clickInfoWindow.open({map: this.map, shouldFocus: false});
         })
         // Hover event
         let mouseoverInfoWindow: any;
