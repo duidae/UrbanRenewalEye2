@@ -85,7 +85,7 @@ class MapControl extends React.Component<any, any> {
                 </Tooltip>
                 <Paper component="form" className={classes.control}>
                     <Tooltip title="">
-                        <IconButton color="primary" className={classes.iconButton} onClick={this.handleMenuClick}>
+                        <IconButton color="primary" disabled={true} className={classes.iconButton} onClick={this.handleMenuClick}>
                             <MenuIcon />
                         </IconButton>
                     </Tooltip>
