@@ -7,7 +7,7 @@ import {withStyles} from "@material-ui/core/styles";
 
 import {BadgesComponent, MapControlComponent} from ".";
 import {AppStore} from "stores";
-import {DEFAULT_ZOOM, TAIPEI_CENTER, TAIPEI_DISTRICTS_GEOJSON} from "models";
+import {DEFAULT_ZOOM, TAIPEI_CENTER, TAIPEI_DISTRICTS_GEOJSON, DISTRICT_NAME_EN_MAP} from "models";
 
 const styles = theme => ({
     map: {
@@ -56,6 +56,9 @@ class GoogleMap extends React.Component<any> {
             };
         });
         this.dataMap.set(TAIPEI_DISTRICTS_GEOJSON, this.districtData);
+
+        // TODO: tmp solution for demo, will remove
+        this.showAllData();
 
         // setup map control widget
         const mapControl = document.createElement("div");
@@ -117,6 +120,12 @@ class GoogleMap extends React.Component<any> {
         const badges = document.createElement("div");
         ReactDOM.render(<BadgesComponent />, badges);
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(badges);
+    };
+
+    private showAllData = () => {
+        this.districtData?.setMap(this.map);
+        const dataPaths = Array.from(DISTRICT_NAME_EN_MAP.values()).map(district => `geojson/self_determined_units/renewalUnits_${district}.json`);
+        this.handleSelectedGeojsons(dataPaths);
     };
 
     private handleSelectedGeojsons = (selectedGeojsonPaths: string[]) => {
