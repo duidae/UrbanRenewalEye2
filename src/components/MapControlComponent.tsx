@@ -84,7 +84,7 @@ class MapControl extends React.Component<any, any> {
                     </Link>
                 </Tooltip>
                 <Paper component="form" className={classes.control}>
-                    <Tooltip title="">
+                    <Tooltip title="行政區">
                         <IconButton color="primary" disabled={true} className={classes.iconButton} onClick={this.handleMenuClick}>
                             <MenuIcon />
                         </IconButton>
@@ -100,7 +100,6 @@ class MapControl extends React.Component<any, any> {
                         </IconButton>
                     </Tooltip>
                 </Paper>
-                <DistrictMenu />
             </div>
         );
     }
