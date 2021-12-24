@@ -1,4 +1,4 @@
-runtime: go117
+runtime: go116
 handlers:
 # Serve all static files with url ending with a file extension
 - url: /(.*\..+)$
