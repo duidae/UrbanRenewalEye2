@@ -1,12 +1,12 @@
 runtime: go116
-handlers:
+#handlers:
 # Serve all static files with url ending with a file extension
-- url: /(.*\..+)$
-  static_files: build/\1
-  upload: build/(.*\..+)$
-- url: /
-  static_files: build/index.html
-  upload: build/index.html
+#- url: /(.*\..+)$
+#  static_files: build/\1
+#  upload: build/(.*\..+)$
+#- url: /
+#  static_files: build/index.html
+#  upload: build/index.html
 # TODO: YAML's regex seems not support negative lookahead, what's the workaround for catch all handler?
 # Catch all handler to index.html
 #- url: /.*
