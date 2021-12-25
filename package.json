@@ -33,7 +33,7 @@
     "start": "node src/server.js",
     "build": "yarn run apply-google-key; react-scripts build",
     "frontend": "yarn run apply-google-key; react-scripts start",
-    "backend": "go run main.go",
+    "backend": "nodemon src/server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "yarn prettier --write ./src"
